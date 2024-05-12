@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
+
+  <title>Jev beauty</title>
+</head>
+
+<body>
+  <div class="holder">
+    <header class="">
+      <div class="page">
+        <div class="header-top flex">
+          <div class="head-top-left-icon flex">
+            <h1>jev.beauty</h1>
+          </div>
+          <div class="head-top-right-icon flex">
+            <ul class="nav">
+              <li class="nav-item active">
+                <a class="nav-link" th:href="@{/}" href="#">home</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" th:href="@{/shop}" href="#">shop</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}" href="#">login</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">logout</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" th:href="@{/cart}" href="#">cart</a>
+              </li>
+              <li class="nav-item active">
+                <span class="nav-link" th:text="${cartCount}">0</span>
+              </li>
+            </ul>
+          </div>
+
+    </header>
+
+    <main>
+ <div class="jumbotron text-center">
+   <div class="display-4">Manage your categories</div>
+ </div>
+       
+    
+<div class="container-fluid text-center">
+    <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Category name</th>
+      <th scope="col">Action</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="category, i:${categories}">
+      <th scope="row" th:text="${i.index+1}">1</th>
+      <td th:text="${category.name}">Mark</td>
+      <td><a class="btn" style="background-color: rgb(155, 189, 164);" th:href="@{/admin/categories/updateCategory/{id} (id=${category.id})}">Update</a>
+      <a class="btn" style="background-color: rgb(173, 93, 93);" th:href="@{/admin/categories/deleteCategory/{id} (id=${category.id})}">Delete</a>
+      </td>
+     
+      </tr>
+  
+  </tbody>
+</table>
+<a class="btn btn-dark" style="background-color: #343a40;" th:href="@{/admin/categories/addCategory}">Add new category</a>
+</div>
+
+<hr style="padding-top: 50px;">
+<hr style="padding-bottom: 10px; background-color: rgb(94, 91, 91);">
+      
+
+      <section id="photos">
+        <div class="photos-list flex">
+          <div class="photo-item">
+            <img src="images/photos.jpg" alt="" />
+          </div>
+        </div>
+      </section>
+     
+    </main>
+
+    <footer id="footer">
+      <div class="page">
+        <div class="footer-list flex">
+          <div class="footer-item one">
+            <a href="#">
+              <img src="images/logo.jpg" alt="" class="logo-footer" />
+            </a>
+            <p class="text">
+              Explore stunning jewellery online. From elegant diamonds to
+              captivating gemstones, find the perfect piece for any occasion.
+            </p>
+            <form id="subscribe">
+              <div class="form-element flex">
+                <input type="email" class="form-control" placeholder="Your e-mail" />
+                <button type="submit" class="subs-btn">Subscribe</button>
+              </div>
+            </form>
+          </div>
+          <div class="footer-item">
+            <h2>OUR COMPANY</h2>
+            <ul>
+              <li><a href="#" th:href="@{/about}">About us</a></li>
+              <li><a href="#services">Our offer</a></li>
+              <li><a href="#trending">Newest Products</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="copyright-text">
+        <div class="page">
+          <p class="text">2022 - All rights reserved</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/js.js"></script>
+</body>
+
+</html>

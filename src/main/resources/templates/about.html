@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+
+    <title>Jev beauty</title>
+</head>
+
+<body>
+    <div class="holder">
+        <header class="xx">
+            <div class="page">
+                <div class="header-top flex">
+                    <div class="head-top-left-icon flex">
+                        <h1>jev.beauty</h1>
+                    </div>
+                    <div class="head-top-right-icon flex">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto"></ul>
+                            <ul class="navbar-nav">
+                                <li class="nav-item active">
+                                    <a class="nav-link" th:href="@{/}" href="#">Home</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" th:href="@{/admin}" sec:authorize="hasAuthority('ADMIN')" href="#">Admin</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" th:href="@{/shop}" href="#">Shop</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}"
+                                        href="#">Login</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}"
+                                        href="#"><b>Logout</b></a>
+                                </li>
+                                <li class="nav-item active">
+                                <a class="nav-link" sec:authorize="hasRole('USER')" th:href="@{/cart}" href="#">Cart (<span th:text="${cartCount}">0</span>)</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" th:href="@{/about}" href="#">About</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                
+                    <div class="about-us">
+
+                        <p style="line-height:30px">At Jewex, we redefine elegance with our exquisite collection of high-quality jewellery. As an
+                            online store dedicated to crafting timeless pieces that resonate with sophistication and
+                            style, we curate each item with meticulous attention to detail.</p>
+                            <p style="line-height:30px">Our commitment to quality is unwavering. From brilliant diamonds to lustrous gemstones, every piece in our collection undergoes rigorous inspection to ensure it meets the highest standards. We believe that jewellery is not just an accessory, but a reflection of individuality and beauty.</p>
+                    </div>
+                
+                <section id="photos">
+                    <div class="photos-list flex">
+                        <div class="photo-item">
+                            <img src="images/photos.jpg" alt="" />
+                        </div>
+                    </div>
+                </section>
+                <section id="map">
+                    <img src="images/mapa.jpg" alt="location map" class="map" />
+                </section>
+                </main>
+
+                <footer id="footer">
+      <div class="page">
+        <div class="footer-list flex">
+          <div class="footer-item one">
+            <a href="#">
+              <img src="images/logo.jpg" alt="" class="logo-footer" />
+            </a>
+            <p class="text">
+              Explore stunning jewellery online. From elegant diamonds to
+              captivating gemstones, find the perfect piece for any occasion.
+            </p>
+            <form id="subscribe">
+              <div class="form-element flex">
+                <input type="email" class="form-control" placeholder="Your e-mail" />
+                <button type="submit" class="subs-btn">Subscribe</button>
+              </div>
+            </form>
+          </div>
+          <div class="footer-item">
+            <h2>OUR COMPANY</h2>
+            <ul>
+              <li><a href="#" th:href="@{/about}">About us</a></li>
+              <li><a href="#services">Our offer</a></li>
+              <li><a href="#trending">Newest Products</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="copyright-text">
+        <div class="page">
+          <p class="text">2022 - All rights reserved</p>
+        </div>
+      </div>
+    </footer>
+            </div>
+
+            <script src="js/js.js"></script>
+</body>
+
+</html>
