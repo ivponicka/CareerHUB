@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
-    <link href='./css/styles.css' rel="stylesheet" type="text/css">
+    <link href='./../css/styles.css' rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="container-fluid">
@@ -28,10 +28,10 @@
                         <a class="nav-link active" aria-current="page" th:href="@{/admin-home}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/employers}">Employers</a>
+                        <a class="nav-link" th:href="@{/job-offers}">Job offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@{/seekers}">Seekers</a>
+                        <a class="nav-link" href="@{/job-offers}">Applications</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@{/admin}">Settings</a>
@@ -53,74 +53,79 @@
             </div>
         </nav>
     </div>
-    <div class="row search">
+    <div class="row job-offers-title">
         <br>
-        <h2>Check out the new possibilies </h2>
-        <form class="form-search-fields">
-            <div class="search-fields">
-                <input id="search-position" placeholder="Name">
-            </div>
-            <div class="search-fields">
-                <input id="search-location" placeholder="Location">
-            </div>
-            <div>
-                <button type="submit" name="search"><i class="fas fa-search"></i></button>
-            </div>
-        </form>
-
+        <h2>Add new job</h2>
 
     </div>
     <br>
-    <div class="container mx-auto">
-        <h2>Categories</h2>
-        <div class="categories mx-auto">
-            <div class="row" style="padding:35px 5px 35px 5px">
-                <th:block th:each="category : ${categories}">
-                    <a class="card " style="width: 16rem; height:13rem; padding:5px; margin:5px">
-                        <img th:src="@{${'/images/' + category.iconName}}" id="card-img-top" alt="${category.iconName}">
-                        <div class="card-body col">
-                            <h5 class="card-title" th:text="${category.name}" style="font-weight: bold;">...</h5>
-                        </div>
-                    </a>
-                </th:block>
+    <div class="container">
+        <form method="post" th:action="@{/employer/job-offers/add}" th:object="${jobDTO}">
+            <div class="row form-box" style="--bs-gutter-x:0px">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="id" th:field="*{id}" hidden>
+                    <label for="title" class="form-label" >Name</label>
+                    <input type="text" class="form-control" th:field="*{title}" id="title" placeholder="Title" required>
+                </div>
+                <div class="form-group col-md-5" style="padding-right: 10px">
+                    <label for="inputType">Type</label>
+                    <select id="inputType" class="form-control" th:field="*{category}" th:each="category : ${categories}">
+                        <option selected th:each="category : ${T(com/example/careerhub/model/Category}.values()" th:value="*{category}" th:text="{category}">Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-5">
+                    <label for="inputCategory">Category</label>
+                    <select id="inputCategory" class="form-control">
+                        <option selected>Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+
             </div>
-        </div>
+            <div class="row form-box" style="--bs-gutter-x:0px">
+                <div class="form-group col-md-5" style="padding-right: 10px">
+                    <label for="inputTitle">Title</label>
+                    <input type="text" class="form-control" id="inputTitle" placeholder="eg. salesman">
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="inputSalary">Salary</label>
+                    <input type="text" class="form-control" id="inputSalary" placeholder="eg. 5000">
+                </div>
+            </div>
+            <div class="form-group col-md-10">
+                <label for="inputRequirements">Requirements</label>
+                <textarea type="text" class="form-control" rows="3" id="inputRequirements"
+                          placeholder="eg. knowledge of MS"></textarea>
+            </div>
+            <div class="form-group col-md-10">
+                <label for="inputExperience">Experience</label>
+                <input type="text" class="form-control" id="inputExperience" placeholder="eg. 2">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputLocation">Location</label>
+                    <input type="text" class="form-control" id="inputLocation">
+                </div>
+
+                <div class="form-group col-md-10">
+                    <label for="inputDescription">Zip</label>
+                    <textarea type="text" class="form-control" rows="3" id="inputDescription"
+                              placeholder="eg. this job..."></textarea>
+                </div>
+            </div>
+            <div style="padding-top:10px; text-align: center;" >
+                <button type="submit" class="btn btn-blue">Add</button>
+            </div>
+
+        </form>
+
     </div>
 
-    <div class="row" style="background-color: rgb(52, 60, 87); padding: 50px 180px">
-        <div class="col-5">
-            <img th:src="@{${'images/job2.jpg'}}" style="width: 400px;"/>
-        </div>
-        <div class="col-7">
-            <h2 style="color: white">We help to get a job and find a new talent</h2>
-            <h5 style="color: white; text-align: justify; padding: 40px" >Looking for your next career move? Look no further than OurJobHub. Our platform offers a diverse range of job opportunities across various industries, making it easy for you to find the perfect job</h5>
-
-
-        </div>
-    </div>
 
     <div class="container">
-        <div class="row job-lists" style="padding:35px 5px 35px 5px; ">
-            <th:block th:each="job : ${jobs}">
-                <a class="card text-center" style="  text-decoration: none; ">
-                    <b><h2 class="card-header" th:text="${job.title}"></h2></b>
-                    </h2>
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${job.salary} + ' €' + ' / ' + ${job.type}"></h5>
-                        <p class="card-text" th:text="${job.description}" style="padding-right: 150px; padding-left:150px"></p>
-                        <div class="locat">
-                            <i class="fas fa-map-marker-alt"></i><p class="card-text" th:text="${job.location}"> <i class="fa-solid fa-location-dot"></i></p>
-                        </div>
 
-
-                    </div>
-                    <div class="card-footer text-body-secondary" th:text="${job.postingDate}">
-
-                    </div>
-                </a>
-
-            </th:block>
-        </div>
     </div>
 
     <div class=" my-5">
@@ -136,7 +141,7 @@
                             </h6>
                             <img th:src="@{${'images/logo.png'}}" style="width: 200px; border: 1px solid #45526e">
                         </div>
-                        <hr class="w-100 clearfix d-md-none" />
+                        <hr class="w-100 clearfix d-md-none"/>
                         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
                             <h6 class="text-uppercase mb-4 font-weight-bold">LINKS</h6>
                             <p>
@@ -152,8 +157,8 @@
                                 <a class="text-white">About us</a>
                             </p>
                         </div>
-                        <hr class="w-100 clearfix d-md-none" />
-                        <hr class="w-100 clearfix d-md-none" />
+                        <hr class="w-100 clearfix d-md-none"/>
+                        <hr class="w-100 clearfix d-md-none"/>
                         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
                             <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
                             <p><i class="fas fa-home mr-3"></i> Warsaw, 12-456, Poland</p>

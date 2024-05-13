@@ -3,6 +3,10 @@
   --lightBlue: rgb(162,168,182);
 }
 
+* {
+  font-family:  font-family: 'Montserrat';
+}
+
 .logo {
   height: 60px;
 }
@@ -23,6 +27,8 @@
   margin-left: 100px;
   margin-right: 100px;
 }
+
+
 
 .search {
   background-color: var(--darkBlue);
@@ -116,9 +122,25 @@
   align-items: center;
 }
 
+/* Emplyer - job offers */
+.job-offers-title{
+  background-color: var(--darkBlue);
+  height: 150px;
+  padding-right:100px;
+  padding-left: 100px;
+}
 
+.job-offers-title h2{
+  color: white;
+}
 
+.btn-blue{
+  background-color: var(--darkBlue);
+  color: white;
+  font-size: 20px;
+  width: 150px;
 
+}
 
 
 

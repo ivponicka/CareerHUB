@@ -21,7 +21,7 @@
   <div class="row">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container">
-        <a class="navbar-brand" href="#"><img th:src="@{${'/images/logo.png'}}" class="logo"/></a>
+        <a class="navbar-brand" href="#"><img th:src="@{${'/images/logo.png'}}" th:href="@{/}" class="logo"/></a>
 
         <ul class="nav justify-content-center">
           <li class="nav-item">
@@ -35,15 +35,12 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#">Admin</a>
+            <a class="nav-link" th:href="@{/admin}">Admin</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#" th:href="@{/about}">About us</a>
           </li>
 
-          <li class="nav-item active">
-            <a class="nav-link" sec:authorize="hasAuthority('USER')"  th:href="@{/admin}" href="#"><b>BLBLB</b></a>
-          </li>
           <li class="nav-item active">
             <a
                     class="nav-link"

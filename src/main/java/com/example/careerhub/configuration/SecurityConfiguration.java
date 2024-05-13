@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -37,14 +38,15 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((authorize) ->
                         authorize
 
-                                .requestMatchers("/", "/index","login", "/js/**", "/register", "register/**", "/static/**").permitAll()
-                                .requestMatchers("/admin", "/admin/**").hasAuthority("USER")
+                                .requestMatchers("/", "/index","login", "/js/**", "/register",  "register/**", "/static/**").permitAll()
+                                .requestMatchers("/admin_home").hasAuthority("USER")
+
                                                                 .anyRequest().permitAll()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/index")
+                                .successHandler(successHandler())
                                 .permitAll()
                 ).logout(
                         logout -> logout
@@ -52,6 +54,11 @@ public class SecurityConfiguration {
                                  .permitAll()
                 );
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler successHandler() {
+        return new CustomAuthenticationSuccessHandler();
     }
 
     @Autowired

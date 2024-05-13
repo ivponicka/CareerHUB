@@ -23,7 +23,7 @@
     <div class="row">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
-                <a class="navbar-brand" href="#"><img th:src="@{${'/images/logo.png'}}" class="logo"/></a>
+                <a class="navbar-brand" href="#"><img th:src="@{${'/images/logo.png'}}"  th:href="@{/}" class="logo"/></a>
 
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
@@ -75,11 +75,11 @@
                                                         <i class="input-icon fa fa-at"></i>
                                                     </div>
 
-                                                    <div class="form-group mt-2">
+                                                    <div class="form-group mt-2" style="padding-top:30px">
 
                                                         <input type="password" id="password" name="password" class="form-style"
                                                                placeholder="Enter your password" />
-                                                        <i class="input-icon fa fa-lock"></i>
+                                                        <i class="input-icon fa fa-lock" style="padding-top:30px"></i>
                                                     </div>
                                                     <div th:if="${param.error}" class="alert alert-error text-danger">
                                                         Invalid username or password.
@@ -88,10 +88,13 @@
                                                     <input value="Login" class="btn mt-4" type="submit"
                                                            style="color:#1f2029; border: 1px solid #1f2029;">
                                                     <br>
-                                                    <span>Don't have an account <a class="linkControl" href="./register.html"
-                                                                                   th:href="@{/register}">Register here</a></span>
                                                     <br>
-                                                    <a href="" th:href="@{/forgotpassword}">Forgot password ?</a>
+                                                    <br>
+                                                    <span style="font-family: 'Montserrat'">Don't have an account?
+                                                       <a class="linkControl" href="./register.html"
+                                                                                   th:href="@{/register}"> <p>Register here</p></a></span>
+                                                    <br>
+
                                                 </form>
                                             </div>
                                         </div>

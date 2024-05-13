@@ -4,6 +4,9 @@ package com.example.careerhub.controller;
 import java.util.List;
 
 import com.example.careerhub.dto.SeekerRegistrationDTO;
+import com.example.careerhub.model.Job;
+import com.example.careerhub.service.JobService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +26,9 @@ public class UserRegistrationController {
 
 
     private UserService userService;
+
+    @Autowired
+    JobService jobService;
 
     public UserRegistrationController(UserService userService) {
         this.userService = userService;
@@ -69,5 +75,33 @@ public class UserRegistrationController {
         return "redirect:/register?success";
     }
 
+    @GetMapping("/employer-home")
+    public String getAdminHome(){
+        return "employer_home";
+    }
 
+    @GetMapping("/job-offers")
+    public String jobOffers(){
+        return "employer_job_offers";
+    }
+
+
+    @GetMapping("/employer/add-job")
+    public String addJob(){
+        return "employer_add_job";
+    }
+
+
+    @GetMapping("/employer/add-job/add")
+    public String addJob(Model model){
+        model.addAttribute("job", new Job());
+        return "employer_add_job";
+    }
+
+
+    @PostMapping("/employer/add-job/add")
+    public String addJobPost(@ModelAttribute("job") Job job){
+        jobService.addJob(job);
+        return "redirect:employer_job_offers";
+    }
 }

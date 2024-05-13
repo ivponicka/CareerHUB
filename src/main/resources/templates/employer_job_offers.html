@@ -28,10 +28,10 @@
                         <a class="nav-link active" aria-current="page" th:href="@{/admin-home}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/employers}">Employers</a>
+                        <a class="nav-link" th:href="@{/job-offers}">Job offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@{/seekers}">Seekers</a>
+                        <a class="nav-link" href="@{/job-offers}">Applications</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@{/admin}">Settings</a>
@@ -53,74 +53,80 @@
             </div>
         </nav>
     </div>
-    <div class="row search">
+    <div class="row job-offers-title">
         <br>
-        <h2>Check out the new possibilies </h2>
-        <form class="form-search-fields">
-            <div class="search-fields">
-                <input id="search-position" placeholder="Name">
-            </div>
-            <div class="search-fields">
-                <input id="search-location" placeholder="Location">
-            </div>
-            <div>
-                <button type="submit" name="search"><i class="fas fa-search"></i></button>
-            </div>
-        </form>
-
-
+        <h2>Job offers </h2>
+        <a type="button" th:href="@{employer/add-job}">Add a new job offer</a>
     </div>
     <br>
     <div class="container mx-auto">
-        <h2>Categories</h2>
-        <div class="categories mx-auto">
-            <div class="row" style="padding:35px 5px 35px 5px">
-                <th:block th:each="category : ${categories}">
-                    <a class="card " style="width: 16rem; height:13rem; padding:5px; margin:5px">
-                        <img th:src="@{${'/images/' + category.iconName}}" id="card-img-top" alt="${category.iconName}">
-                        <div class="card-body col">
-                            <h5 class="card-title" th:text="${category.name}" style="font-weight: bold;">...</h5>
-                        </div>
-                    </a>
-                </th:block>
-            </div>
-        </div>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
-    <div class="row" style="background-color: rgb(52, 60, 87); padding: 50px 180px">
-        <div class="col-5">
-            <img th:src="@{${'images/job2.jpg'}}" style="width: 400px;"/>
-        </div>
-        <div class="col-7">
-            <h2 style="color: white">We help to get a job and find a new talent</h2>
-            <h5 style="color: white; text-align: justify; padding: 40px" >Looking for your next career move? Look no further than OurJobHub. Our platform offers a diverse range of job opportunities across various industries, making it easy for you to find the perfect job</h5>
 
-
-        </div>
-    </div>
 
     <div class="container">
-        <div class="row job-lists" style="padding:35px 5px 35px 5px; ">
-            <th:block th:each="job : ${jobs}">
-                <a class="card text-center" style="  text-decoration: none; ">
-                    <b><h2 class="card-header" th:text="${job.title}"></h2></b>
-                    </h2>
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${job.salary} + ' €' + ' / ' + ${job.type}"></h5>
-                        <p class="card-text" th:text="${job.description}" style="padding-right: 150px; padding-left:150px"></p>
-                        <div class="locat">
-                            <i class="fas fa-map-marker-alt"></i><p class="card-text" th:text="${job.location}"> <i class="fa-solid fa-location-dot"></i></p>
-                        </div>
 
-
-                    </div>
-                    <div class="card-footer text-body-secondary" th:text="${job.postingDate}">
-
-                    </div>
-                </a>
-
-            </th:block>
-        </div>
     </div>
 
     <div class=" my-5">
