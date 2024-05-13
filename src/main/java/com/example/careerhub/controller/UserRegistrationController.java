@@ -3,6 +3,7 @@ package com.example.careerhub.controller;
 
 import java.util.List;
 
+import com.example.careerhub.dto.JobDTO;
 import com.example.careerhub.dto.SeekerRegistrationDTO;
 import com.example.careerhub.model.Job;
 import com.example.careerhub.service.JobService;
@@ -35,17 +36,17 @@ public class UserRegistrationController {
     }
 
     @GetMapping("/index")
-    public String home(){
+    public String home() {
         return "index";
     }
 
-   @GetMapping("/login")
-    public String login(){
+    @GetMapping("/login")
+    public String login() {
         return "login";
     }
-    
+
     @GetMapping("/register")
-    public String showRegistrationForm(Model model){
+    public String showRegistrationForm(Model model) {
         // create model object to store form data
         UserRegistrationDTO user = new UserRegistrationDTO();
         SeekerRegistrationDTO seeker = new SeekerRegistrationDTO();
@@ -58,15 +59,15 @@ public class UserRegistrationController {
     @PostMapping("/registerUser/save")
     public String registration(@Valid @ModelAttribute("employer") UserRegistrationDTO userRegistrationDTO,
                                BindingResult result,
-                               Model model){
+                               Model model) {
         User existingUser = userService.findUserByEmail(userRegistrationDTO.getEmail());
 
-        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
+        if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
             result.rejectValue("email", null,
                     "There is already an account registered with the same email");
         }
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             model.addAttribute("user", userRegistrationDTO);
             return "/register";
         }
@@ -75,33 +76,38 @@ public class UserRegistrationController {
         return "redirect:/register?success";
     }
 
-    @GetMapping("/employer-home")
-    public String getAdminHome(){
+    @GetMapping("/employer")
+    public String getAdminHome() {
         return "employer_home";
     }
 
     @GetMapping("/job-offers")
-    public String jobOffers(){
+    public String jobOffers() {
         return "employer_job_offers";
     }
 
 
+
+
     @GetMapping("/employer/add-job")
-    public String addJob(){
+    public String addJob(Model model) {
+        model.addAttribute("jobDTO", new JobDTO());
         return "employer_add_job";
     }
 
 
-    @GetMapping("/employer/add-job/add")
-    public String addJob(Model model){
-        model.addAttribute("job", new Job());
-        return "employer_add_job";
-    }
-
-
-    @PostMapping("/employer/add-job/add")
-    public String addJobPost(@ModelAttribute("job") Job job){
+    @PostMapping("/employer/add-job")
+    public String addJobPost(@ModelAttribute("jobDTO") JobDTO jobDTO) {
+        Job job = new Job();
+        job.setId(jobDTO.getId());
+        job.setTitle(jobDTO.getTitle());
+        job.setCategory(jobDTO.getCategory());
+        job.setType(jobDTO.getType());
+        job.setExperience(jobDTO.getExperience());
+        job.setRequirements(jobDTO.getRequirements());
+        job.setLocation(jobDTO.getLocation());
+        job.setDescription(jobDTO.getDescription());
         jobService.addJob(job);
-        return "redirect:employer_job_offers";
+        return "redirect:/job-offers";
     }
 }

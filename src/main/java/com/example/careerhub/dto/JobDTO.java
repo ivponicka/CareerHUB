@@ -13,6 +13,8 @@ import lombok.Setter;
 
 public class JobDTO {
 
+    @Id
+    @GeneratedValue(strategy =  GenerationType.AUTO)
     private Long id;
 
     private String category;
