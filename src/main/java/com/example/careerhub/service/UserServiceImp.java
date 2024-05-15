@@ -1,6 +1,8 @@
 package com.example.careerhub.service;
 
 
+import com.example.careerhub.model.Job;
+import com.example.careerhub.repository.JobRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,8 @@ public class UserServiceImp implements UserService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
+
+    private JobRepository jobRepository;
 
     public UserServiceImp(UserRepository userRepository,
                            RoleRepository roleRepository,
@@ -60,6 +64,8 @@ public class UserServiceImp implements UserService {
                 .map((user) -> mapToUserDto(user))
                 .collect(Collectors.toList());
     }
+
+
 
     private UserRegistrationDTO mapToUserDto(User user){
         UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO();

@@ -25,7 +25,7 @@
 
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" th:href="@{/admin-home}">Home</a>
+                        <a class="nav-link active" aria-current="page" th:href="@{/employer}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/job-offers}">Job offers</a>
@@ -65,13 +65,10 @@
                 <input type="text" class="form-control" id="id" th:field="*{id}" hidden>
                 <div class="form-group col-md-5" style="padding-right: 10px">
                     <label for="category">Category</label>
-                    <select id="category" class="form-control" th:field="*{category}" th:each="category : ${categories}">
-                        <option selected th:each="category : ${T(com.example.careerhub.model.Category.values()" th:value="*{category}" th:text="{category}"></option>
+                    <select id="category" class="form-control" th:field="*{category}">
+                        <option th:each="category : ${T(com.example.careerhub.model.Category).values()}"
+                                th:value="${category}" th:text="${category}"></option>
                     </select>
-
-
-
-
                 </div>
                 <div class="col-md-5">
                     <label for="type" class="form-label" >Type</label>
@@ -133,7 +130,7 @@
                             <h6 class="text-uppercase mb-4 font-weight-bold">
                                 CareerHUB
                             </h6>
-                            <img th:src="@{${'images/logo.png'}}" style="width: 200px; border: 1px solid #45526e">
+                            <img th:src="@{${'./../images/logo.png'}}" style="width: 200px; border: 1px solid #45526e">
                         </div>
                         <hr class="w-100 clearfix d-md-none"/>
                         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">

@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
-    <link href='./../css/styles.css' rel="stylesheet" type="text/css">
+    <link href='./../../css/styles.css' rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="container-fluid">
@@ -54,49 +54,52 @@
         </nav>
     </div>
     <div class="row job-offers-title">
-        <br>
-        <h2>Job offers </h2>
+
+        <h2 th:text="${job.title}" style="padding: 50px 0"></h2>
     </div>
     <br>
     <div class="container mx-auto">
-        <table class="table">
-            <thead class="thead-dark">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Category</th>
-                <th scope="col">Type</th>
-                <th scope="col">Location</th>
-                <th scope="col">Salary</th>
-                <th scope="col" style="text-align: center" >ACTION</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="job, i:${jobs}">
-                <th scope="row" th:text="${i.index+1}">1</th>
-                <td th:text="${job.title}"></td>
-                <td th:text="${job.category}"></td>
-                <td th:text="${job.type}"></td>
-                <td th:text="${job.location}"></td>
-                <td th:text="${job.salary}"></td>
-                <td style="text-align: center; width:200px; justify-content:center">
-                        <a type="submit" th:href="@{/employer/view-job/{id} (id=${job.id})}" class="btn btn-blue" style="font-size: 18px;">See details</a>
+        <div class="row" style="padding-left:100px; padding-right:100px">
+            <div class="col-4" >
 
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                <h5><b>Category</b></h5>
+                <h4 th:text="${job.category}" class="job-offer-details"></h4>
+                <br>
+                <h5><b>Job type</b></h5>
+                <h4 th:text="${job.type}" class="job-offer-details"></h4>
+                <br>
+                <h5><b>Salary</b></h5>
+                <h4 th:text="${job.salary}" class="job-offer-details"></h4>
+            </div>
+            <div class="col-7 justify-content-md-center"  >
+                <h5><b>Location</b></h5>
+                <h4 th:text="${job.location}" class="job-offer-details"></h4>
+                <h5><b>Requirements</b></h5>
+                <h6 th:text="${job.requirements}" class="job-offer-details"></h6>
+                <br>
+                <h5><b>Description</b></h5>
+                <h6 th:text="${job.description}" class="job-offer-details"></h6>
+                <br>
 
+                <div class="col-12" style="display: flex; flex-direction: row; justify-content: space-between; padding-top: 50px; ">
+                    <div>
+                        <a type="button" th:href="@{/employer/edit/{id} (id=${job.id})}" class="btn btn-outline-dark" style="width: 150px; padding-right: 20px">Edit</a>
+                        <a type="button" th:href="@{/job-offers}" class="btn btn-outline-dark" style="width: 150px" >Back</a>
+                    </div>
+
+                    <div style="padding-left: 150px">
+                        <a type="button" th:href="@{/employer/delete/{id} (id=${job.id})}" class="btn btn-outline-danger" style="width: 150px;" >Delete</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
     </div>
 
 
     <div class="container">
 
-        <div style="padding-top:10px; text-align: center; ">
-            <a type="submit" th:href="@{employer/add-job}" class="btn btn-blue" style="font-size: 18px;width:300px; height:50px">Add new job
-                offer
-            </a>
-        </div>
     </div>
 
     <div class=" my-5">

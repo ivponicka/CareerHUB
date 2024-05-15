@@ -2,6 +2,7 @@ package com.example.careerhub.controller;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.careerhub.dto.JobDTO;
 import com.example.careerhub.dto.SeekerRegistrationDTO;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.careerhub.dto.UserRegistrationDTO;
@@ -20,6 +22,7 @@ import com.example.careerhub.model.User;
 import com.example.careerhub.service.UserService;
 
 import jakarta.validation.Valid;
+import org.thymeleaf.model.IModel;
 
 
 @Controller
@@ -76,17 +79,16 @@ public class UserRegistrationController {
         return "redirect:/register?success";
     }
 
-    @GetMapping("/employer")
-    public String getAdminHome() {
+    @GetMapping("/employer-home")
+    public String getEmployerHome() {
         return "employer_home";
     }
 
     @GetMapping("/job-offers")
-    public String jobOffers() {
+    public String jobOffers(Model model) {
+        model.addAttribute("jobs", jobService.getAllJobs());
         return "employer_job_offers";
     }
-
-
 
 
     @GetMapping("/employer/add-job")
@@ -104,10 +106,40 @@ public class UserRegistrationController {
         job.setCategory(jobDTO.getCategory());
         job.setType(jobDTO.getType());
         job.setExperience(jobDTO.getExperience());
+        job.setSalary(jobDTO.getSalary());
         job.setRequirements(jobDTO.getRequirements());
         job.setLocation(jobDTO.getLocation());
         job.setDescription(jobDTO.getDescription());
         jobService.addJob(job);
         return "redirect:/job-offers";
     }
+
+    @GetMapping("employer/view-job/{id}")
+    public String viewJob(@PathVariable long id, Model model){
+        model.addAttribute("job", jobService.getJobByID(id).get());
+        return "employer_job_offer_details";
+    }
+
+    @GetMapping("employer/delete/{id}")
+    public String viewJob(@PathVariable long id){
+        jobService.deleteJob(id);
+        return "redirect:/job-offers";
+    }
+
+    @GetMapping("employer/edit/{id}")
+    public String editJob(@PathVariable long id, Model model){
+        Job job = jobService.getJobByID(id).get();
+        JobDTO jobDTO = new JobDTO();
+        jobDTO.setId(job.getId());
+        jobDTO.setTitle(job.getTitle());
+        jobDTO.setCategory(job.getCategory());
+        jobDTO.setLocation(job.getLocation());
+        jobDTO.setSalary(job.getSalary());
+        jobDTO.setExperience(job.getExperience());
+        jobDTO.setRequirements(job.getRequirements());
+        jobDTO.setDescription(job.getDescription());
+        model.addAttribute("jobDTO", jobDTO);
+        return "employer_job_offer_edit";
+    }
+
 }

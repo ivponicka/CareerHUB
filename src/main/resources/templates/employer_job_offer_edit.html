@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
-    <link href='./../css/styles.css' rel="stylesheet" type="text/css">
+    <link href='./../../css/styles.css' rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="container-fluid">
@@ -25,7 +25,7 @@
 
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" th:href="@{/employer-home}">Home</a>
+                        <a class="nav-link active" aria-current="page" th:href="@{/employer}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/job-offers}">Job offers</a>
@@ -55,48 +55,68 @@
     </div>
     <div class="row job-offers-title">
         <br>
-        <h2>Job offers </h2>
+        <h2>Edit job offer</h2>
+
     </div>
     <br>
-    <div class="container mx-auto">
-        <table class="table">
-            <thead class="thead-dark">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Category</th>
-                <th scope="col">Type</th>
-                <th scope="col">Location</th>
-                <th scope="col">Salary</th>
-                <th scope="col" style="text-align: center" >ACTION</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="job, i:${jobs}">
-                <th scope="row" th:text="${i.index+1}">1</th>
-                <td th:text="${job.title}"></td>
-                <td th:text="${job.category}"></td>
-                <td th:text="${job.type}"></td>
-                <td th:text="${job.location}"></td>
-                <td th:text="${job.salary}"></td>
-                <td style="text-align: center; width:200px; justify-content:center">
-                        <a type="submit" th:href="@{/employer/view-job/{id} (id=${job.id})}" class="btn btn-blue" style="font-size: 18px;">See details</a>
+    <div class="container">
+        <form method="post" th:action="@{/employer/add-job}" th:object="${jobDTO}">
+            <div class="row form-box" style="--bs-gutter-x:0px">
+                <input type="text" class="form-control" id="id" th:field="*{id}" hidden>
+                <div class="form-group col-md-5" style="padding-right: 10px">
+                    <label for="category">Category</label>
+                    <select id="category" class="form-control" th:field="*{category}">
+                        <option th:each="category : ${T(com.example.careerhub.model.Category).values()}"
+                                th:value="${category}" th:text="${category}"></option>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <label for="type" class="form-label" >Type</label>
+                    <input type="text" class="form-control" th:field="*{type}" id="type" placeholder="eg. part-time">
+                </div>
+            </div>
+            <div class="row form-box" style="--bs-gutter-x:0px">
+                <div class="form-group col-md-5" style="padding-right: 10px">
+                    <label for="inputTitle">Title</label>
+                    <input type="text" class="form-control" id="inputTitle" th:field="*{title}" placeholder="eg. salesman">
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="inputSalary">Salary</label>
+                    <input type="text" class="form-control" id="inputSalary" th:field="*{salary}" placeholder="eg. 5000">
+                </div>
+            </div>
+            <div class="form-group col-md-10">
+                <label for="inputRequirements">Requirements</label>
+                <textarea type="text" class="form-control" rows="3" id="inputRequirements"
+                         th:field="*{requirements}" placeholder="eg. knowledge of MS"></textarea>
+            </div>
+            <div class="form-group col-md-10">
+                <label for="inputExperience">Experience</label>
+                <input type="text" class="form-control" id="inputExperience" th:field="*{experience}" placeholder="eg. 2">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputLocation">Location</label>
+                    <input type="text" class="form-control" th:field="*{location}" id="inputLocation">
+                </div>
 
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                <div class="form-group col-md-10">
+                    <label for="inputDescription">Description</label>
+                    <textarea type="text" class="form-control" rows="3" th:field="*{description}" id="inputDescription"
+                              placeholder="eg. this job..."></textarea>
+                </div>
+            </div>
+            <div style="padding-top:10px; text-align: center;" >
+                <button type="submit" class="btn btn-blue">Update</button>
+            </div>
+
+        </form>
 
     </div>
 
 
     <div class="container">
 
-        <div style="padding-top:10px; text-align: center; ">
-            <a type="submit" th:href="@{employer/add-job}" class="btn btn-blue" style="font-size: 18px;width:300px; height:50px">Add new job
-                offer
-            </a>
-        </div>
     </div>
 
     <div class=" my-5">
@@ -110,7 +130,7 @@
                             <h6 class="text-uppercase mb-4 font-weight-bold">
                                 CareerHUB
                             </h6>
-                            <img th:src="@{${'images/logo.png'}}" style="width: 200px; border: 1px solid #45526e">
+                            <img th:src="@{${'./../images/logo.png'}}" style="width: 200px; border: 1px solid #45526e">
                         </div>
                         <hr class="w-100 clearfix d-md-none"/>
                         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
