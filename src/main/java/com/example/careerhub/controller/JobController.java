@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -28,8 +29,10 @@ public class JobController {
     @RequestParam(defaultValue = "10") int size) {
         Page<Job> jobPage = jobService.getPaginatedJobs(page, size);
         model.addAttribute("jobPage", jobPage);
-        return "recent_job_offers";
+        return "jobs_recent_job_offers";
     }
+
+
 
     @GetMapping("/job-offers")
     public String jobOffers(Model model) {
@@ -46,6 +49,20 @@ public class JobController {
         model.addAttribute("jobs", jobs);
         return "employer_job_offers";
     }
+    @GetMapping("/view-job/{id}")
+    public String viewJob(@PathVariable long id, Model model){
+        model.addAttribute("job", jobService.getJobByID(id).get());
+        return "job_offer_details";
+    }
 
+    @GetMapping("/jobs_category_job_offers")
+    public String getJobsByCategory(@RequestParam String category,
+                                    @RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "10") int size, Model model) {
+        Page<Job> jobPage = jobService.getPaginatedJobsByCategory(category, page, size);
+        model.addAttribute("jobPage", jobPage);
+        model.addAttribute("category", category);
+        return "jobs_category_job_offers"; // Ensure this is the correct template name
+    }
 
 }

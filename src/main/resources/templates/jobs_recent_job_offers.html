@@ -75,7 +75,7 @@
         <div class="row job-lists" style="padding:35px 5px 35px 5px;">
             <h2 class="categories-title" style="padding-bottom: 20px">Recently added job offers</h2>
             <th:block th:each="job : ${jobPage.content}">
-                <a class="card text-center" style="text-decoration: none;">
+                <a class="card text-center"  th:href="@{/view-job/{id}(id=${job.id})}" style="text-decoration: none;">
                     <b><h2 class="card-header" th:text="${job.title}"></h2></b>
                     <div class="row">
                         <div class="col-3" style="align-items:center">

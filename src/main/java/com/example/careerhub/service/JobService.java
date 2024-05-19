@@ -26,10 +26,11 @@ public interface JobService {
 
     public List<Job> getJobsByCategory(Category category);
 
-
     public List<Job> getAllJobsWithUsers();
 
     public Page<Job> getPaginatedJobs(int page, int size);
+    Page<Job> getPaginatedJobsByCategory(String category, int page, int size);
 
     public List<Job> getJobsByUser(User user);
+
 }

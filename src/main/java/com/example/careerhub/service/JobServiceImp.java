@@ -55,7 +55,14 @@ public class JobServiceImp implements JobService {
         return jobRepository.findAll(pageable);
     }
 
+    @Override
+    public Page<Job> getPaginatedJobsByCategory(String category, int page, int size) {
+        return jobRepository.findByCategory(category, PageRequest.of(page, size));
+    }
+
     public List<Job> getJobsByUser(User user) {
         return jobRepository.findByUser(user);
     }
+
+
 }

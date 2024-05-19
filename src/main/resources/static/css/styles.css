@@ -164,6 +164,12 @@ a {
     font-size:20px;
 }
 
+.company-info-details{
+font-weight: bold;
+    border: 2px solid var(--darkBlue);
+    color: var(--darkBlue);
+}
+
 
 
 
