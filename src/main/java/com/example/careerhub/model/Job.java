@@ -22,11 +22,11 @@ public class Job {
     private String type;
 
     private String salary;
-    @Column(length = 750)
+    @Column(length = 1000)
     private String requirements;
 
     private int experience;
     private String location;
-    @Column(length = 750)
+    @Column(length = 1000)
     private String description;
 }

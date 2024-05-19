@@ -1,5 +1,6 @@
 package com.example.careerhub.service;
 
+import com.example.careerhub.model.Category;
 import com.example.careerhub.model.Job;
 import com.example.careerhub.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,11 @@ public class JobServiceImp implements JobService {
     @Override
     public void deleteJob(Long id) {
         jobRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Job> getJobsByCategory(Category category) {
+         return jobRepository.findByCategory(category);
     }
 
 

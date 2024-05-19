@@ -1,5 +1,6 @@
 package com.example.careerhub.service;
 
+import com.example.careerhub.model.Category;
 import com.example.careerhub.model.Job;
 import com.example.careerhub.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import java.util.Optional;
 
 public interface JobService {
 
+
     public void addJob(Job job);
 
     public List<Job> getAllJobs();
@@ -17,4 +19,6 @@ public interface JobService {
     public Optional<Job> getJobByID(Long id);
 
     public void deleteJob(Long id);
+
+    public List<Job> getJobsByCategory(Category category);
 }

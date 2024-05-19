@@ -1,45 +1,57 @@
 package com.example.careerhub.controller;
 
 
-import java.util.List;
-import java.util.Optional;
-
-import com.example.careerhub.dto.JobDTO;
-import com.example.careerhub.dto.SeekerRegistrationDTO;
+import com.example.careerhub.dto.*;
+import com.example.careerhub.model.Category;
 import com.example.careerhub.model.Job;
 import com.example.careerhub.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.careerhub.dto.UserRegistrationDTO;
 import com.example.careerhub.model.User;
 import com.example.careerhub.service.UserService;
 
 import jakarta.validation.Valid;
-import org.thymeleaf.model.IModel;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Controller
 public class UserRegistrationController {
 
 
+    @Autowired
     private UserService userService;
 
     @Autowired
     JobService jobService;
 
+
     public UserRegistrationController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/index")
-    public String home() {
+    @GetMapping(value = {"/", "/home"})
+    public String home(Model model) {
+        List<Job> jobs = jobService.getAllJobs();
+        Map<String, Long> jobsByCategory = jobs.stream()
+                .collect(Collectors.groupingBy(Job::getCategory, Collectors.counting()));
+        model.addAttribute("jobsByCategory", jobsByCategory);
+
+        // Add category and icon path
+        Map<String, String> categoryIconPaths = new HashMap<>();
+        for (Category category : Category.values()) {
+            categoryIconPaths.put(category.name(), category.getIconPath());
+        }
+        model.addAttribute("categoryIconPaths", categoryIconPaths);
+        model.addAttribute("jobs", jobs);
         return "index";
     }
 
@@ -62,7 +74,8 @@ public class UserRegistrationController {
     @PostMapping("/registerUser/save")
     public String registration(@Valid @ModelAttribute("employer") UserRegistrationDTO userRegistrationDTO,
                                BindingResult result,
-                               Model model) {
+                               Model model, @RequestParam("imageRec") MultipartFile file,
+                               @RequestParam("imgName") String imgName) {
         User existingUser = userService.findUserByEmail(userRegistrationDTO.getEmail());
 
         if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
@@ -75,12 +88,25 @@ public class UserRegistrationController {
             return "/register";
         }
 
-        userService.saveUser(userRegistrationDTO);
+        userService.saveUser(userRegistrationDTO, file, imgName);
         return "redirect:/register?success";
     }
 
     @GetMapping("/employer-home")
-    public String getEmployerHome() {
+    public String getEmployerHome(Model model) {
+        List<Job> jobs = jobService.getAllJobs();
+        Map<String, Long> jobsByCategory = jobs.stream()
+                .collect(Collectors.groupingBy(Job::getCategory, Collectors.counting()));
+        model.addAttribute("jobsByCategory", jobsByCategory);
+
+        // Add category and icon path
+        Map<String, String> categoryIconPaths = new HashMap<>();
+        for (Category category : Category.values()) {
+            categoryIconPaths.put(category.name(), category.getIconPath());
+        }
+        model.addAttribute("categoryIconPaths", categoryIconPaths);
+        model.addAttribute("jobs", jobs);
+
         return "employer_home";
     }
 
@@ -90,11 +116,18 @@ public class UserRegistrationController {
         return "employer_job_offers";
     }
 
+    @GetMapping("/employer/settings")
+    public String usersSettings(Model model) {
+        model.addAttribute("user", new UserRegistrationDTO());
+        return "employer_settings";
+    }
+
+
 
     @GetMapping("/employer/add-job")
     public String addJob(Model model) {
         model.addAttribute("jobDTO", new JobDTO());
-        return "employer_add_job";
+        return "employer_job_offer_add";
     }
 
 
@@ -126,20 +159,6 @@ public class UserRegistrationController {
         return "redirect:/job-offers";
     }
 
-    @GetMapping("employer/edit/{id}")
-    public String editJob(@PathVariable long id, Model model){
-        Job job = jobService.getJobByID(id).get();
-        JobDTO jobDTO = new JobDTO();
-        jobDTO.setId(job.getId());
-        jobDTO.setTitle(job.getTitle());
-        jobDTO.setCategory(job.getCategory());
-        jobDTO.setLocation(job.getLocation());
-        jobDTO.setSalary(job.getSalary());
-        jobDTO.setExperience(job.getExperience());
-        jobDTO.setRequirements(job.getRequirements());
-        jobDTO.setDescription(job.getDescription());
-        model.addAttribute("jobDTO", jobDTO);
-        return "employer_job_offer_edit";
-    }
+
 
 }

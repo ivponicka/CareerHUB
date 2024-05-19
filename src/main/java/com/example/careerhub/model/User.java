@@ -42,4 +42,13 @@ public class User
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles = new ArrayList<>();
 
+
+    private String companyName;
+
+    private String location;
+    private String imageName;
+    private String imagePath;
+    @Column(length = 1000)
+    private String companyDescription;
+
 }

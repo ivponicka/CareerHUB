@@ -31,13 +31,13 @@
                         <a class="nav-link" th:href="@{/job-offers}">Job offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@{/job-offers}">Applications</a>
+                        <a class="nav-link" th:href="@{/job-offers}">Applications</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@{/admin}">Settings</a>
+                        <a class="nav-link" th:href="@{/employer/settings}">Settings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" th:href="@{/about}">About us</a>
+                        <a class="nav-link" th:href="#" th:href="@{/about}">About us</a>
                     </li>
 
                     <li class="nav-item active">
@@ -108,6 +108,7 @@
             </div>
             <div style="padding-top:10px; text-align: center;" >
                 <button type="submit" class="btn btn-blue">Update</button>
+                <a type="button" th:href="@{/job-offers}" class="btn btn-outline-dark" style="width: 150px" >Back</a>
             </div>
 
         </form>
@@ -130,7 +131,7 @@
                             <h6 class="text-uppercase mb-4 font-weight-bold">
                                 CareerHUB
                             </h6>
-                            <img th:src="@{${'./../images/logo.png'}}" style="width: 200px; border: 1px solid #45526e">
+                            <img th:src="@{${'./../../images/logo.png'}}" style="width: 200px; border: 1px solid #45526e">
                         </div>
                         <hr class="w-100 clearfix d-md-none"/>
                         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">

@@ -23,7 +23,8 @@
     <div class="row">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
-                <a class="navbar-brand" href="#"><img th:src="@{${'/images/logo.png'}}" th:href="@{/index}" class="logo"/></a>
+                <a class="navbar-brand" href="#"><img th:src="@{${'/images/logo.png'}}" th:href="@{/index}"
+                                                      class="logo"/></a>
 
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
@@ -58,11 +59,11 @@
                     <div class="col-12 text-center align-self-center py-5">
                         <div class="section-register pb-5 pt-5 pt-sm-2 text-center">
                             <h6 class="mb-6 pb-6">
-                                <h3  >EMPLOYER | SEEKER</h3>
+                                <h3>EMPLOYER | SEEKER</h3>
                                 <p style="padding-bottom:30px"><em>just click below</em></p>
                             </h6>
                             <input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
-                            <label for="reg-log" ></label>
+                            <label for="reg-log"></label>
 
                             <div class="card-3d-wrap mx-auto">
                                 <div class="card-3d-wrapper">
@@ -72,8 +73,10 @@
                                     <div class="card-front">
                                         <div class="center-wrap">
                                             <div class="section-register text-center">
-                                                <form method="post" th:action="@{/registerUser/save}" th:object="${user}">
-                                                    <h4 class="mb-4 pb-3" style="color:#1f2029;">EMPLOYER - register</h4>
+                                                <form method="post" th:action="@{/registerUser/save}"
+                                                      th:object="${user}" enctype="multipart/form-data">
+                                                    <h4 class="mb-4 pb-3" style="color:#1f2029;">EMPLOYER -
+                                                        register</h4>
                                                     <div class="form-group">
                                                         <input type="text" name="firstName" class="form-style"
                                                                placeholder="First name" id="firstNameEmployer"
@@ -81,18 +84,22 @@
                                                         <i class="input-icon fa fa-user"></i></div>
                                                     <div class="form-group mt-2">
                                                         <input type="text" name="lastName" class="form-style"
-                                                               placeholder="Last name"  id="lastNameEmployer"
+                                                               placeholder="Last name" id="lastNameEmployer"
                                                                autocomplete="none" th:field="*{lastName}">
                                                         <div class="form-group mt-2">
                                                             <input type="text" name="email" class="form-style"
-                                                                   placeholder="Phone" id="phoneEmployer" autocomplete="none"
+                                                                   placeholder="Phone" id="phoneEmployer"
+                                                                   autocomplete="none"
                                                                    th:field="*{phone}">
                                                             <i class="input-icon fa fa-at"></i></div>
-                                                        <i class="input-icon fa fa-user"></i></div>
+                                                        <i class="input-icon fa fa-user"></i>
+                                                    </div>
+
                                                     <div class="form-group mt-2">
                                                         <input type="email" name="email" class="form-style"
-                                                               placeholder="Email" id="emailEmployer" autocomplete="none"
-                                                               th:field="*{email}">
+                                                               placeholder="Email" id="emailEmployer"
+                                                               autocomplete="none"
+                                                                th:field="*{email}">
                                                         <i class="input-icon fa fa-at"></i></div>
                                                     <div class="form-group mt-2"><input type="password" name="logpass"
                                                                                         class="form-style"
@@ -101,8 +108,38 @@
                                                                                         autocomplete="none"
                                                                                         th:field="*{password}"> <i
                                                             class="input-icon fa fa-lock"></i></div>
+                                                    <div><h2>Company info</h2></div>
+                                                    <div class="form-group mt-2">
+                                                        <input type="text" name="email" class="form-style"
+                                                               placeholder="Company name" id="companyName"
+                                                               autocomplete="none"
+                                                               th:field="*{companyName}">
+                                                        <i class="input-icon fa fa-at"></i></div>
+                                                    <div class="form-group mt-2">
+                                                        <input type="text" name="location" class="form-style"
+                                                               placeholder="Location" id="location"
+                                                               autocomplete="none"
+                                                               th:field="*{location}">
+                                                        <i class="input-icon fa fa-at"></i></div>
+                                                    <div class="form-group mt-2">
+                                                        <input type="text" name="email" class="form-style"
+                                                               placeholder="description" id="description"
+                                                               autocomplete="none"
+                                                               th:field="*{companyDescription}">
+                                                        <i class="input-icon fa fa-at"></i></div>
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-6">
+                                                            <label for="imageRec" class="form-label">Add logo</label>
+                                                            <input type="file" class="form-control" id="imageRec" name="imageRec" accept="image/jpeg, image/png" onchange="previewImage(event)">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <img id="imagePreview" src="#" alt="Preview" style="display: none; height: 100px; width: 100px;">
+                                                            <input type="hidden" name="imgName" th:value="${user.imageName}">
+                                                        </div>
+                                                    </div>
                                                     <button class="btn mt-4" type="submit"
-                                                            style="color:#1f2029; border: 1px solid #1f2029;">Register as an
+                                                            style="color:#1f2029; border: 1px solid #1f2029;">Register
+                                                        as an
                                                         employer
                                                     </button>
                                                 </form>
@@ -110,10 +147,11 @@
                                         </div>
                                     </div>
 
-                                    <div class="card-back">
+                                    <div class="card-back" id="card-front">
                                         <div class="center-wrap">
                                             <div class="section-register text-center">
-                                                <form method="post" th:action="@{/registerSeeker/save}" th:object="${seeker}">
+                                                <form method="post" th:action="@{/registerSeeker/save}"
+                                                      th:object="${seeker}">
                                                     <h4 class="mb-4 pb-3" style="color:#1f2029">SEEKER - register</h4>
                                                     <input type="text" th="*{role}" value="SEEKER">
                                                     <div class="form-group">
@@ -127,7 +165,8 @@
                                                                autocomplete="none" th:field="*{lastName}">
                                                         <div class="form-group mt-2">
                                                             <input type="text" name="email" class="form-style"
-                                                                   placeholder="Phone" id="phoneSeeker" autocomplete="none"
+                                                                   placeholder="Phone" id="phoneSeeker"
+                                                                   autocomplete="none"
                                                                    th:field="*{phone}">
                                                             <i class="input-icon fa fa-at"></i></div>
                                                         <i class="input-icon fa fa-user"></i></div>
@@ -144,7 +183,8 @@
                                                                                         th:field="*{password}"> <i
                                                             class="input-icon fa fa-lock"></i></div>
                                                     <button class="btn mt-4" type="submit"
-                                                            style="color:#1f2029; border: 1px solid #1f2029;">Register as an
+                                                            style="color:#1f2029; border: 1px solid #1f2029;">Register
+                                                        as an
                                                         seeker
                                                     </button>
                                                 </form>
@@ -170,7 +210,8 @@
                                     <h6 class="text-uppercase mb-4 font-weight-bold">
                                         CareerHUB
                                     </h6>
-                                    <img th:src="@{${'images/logo.png'}}" style="width: 200px; border: 1px solid #45526e">
+                                    <img th:src="@{${'images/logo.png'}}"
+                                         style="width: 200px; border: 1px solid #45526e">
                                 </div>
                                 <hr class="w-100 clearfix d-md-none"/>
                                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">

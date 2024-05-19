@@ -25,7 +25,7 @@
 
         <ul class="nav justify-content-center">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="#" th:href="@{/home}">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#" th:href="@{/register}">Register</a>
@@ -72,16 +72,20 @@
 
   </div>
   <br>
-  <div class="container mx-auto">
-    <h2>Categories</h2>
+  <div class="col-12">
+    <h2 class="categories-title">Categories</h2>
     <div class="categories mx-auto">
       <div class="row" style="padding:35px 5px 35px 5px">
-        <th:block th:each="category : ${categories}">
-          <a class="card " style="width: 16rem; height:13rem; padding:5px; margin:5px">
-            <img th:src="@{${'/images/' + category.iconName}}" id="card-img-top" alt="${category.iconName}">
+
+        <th:block th:each="entry : ${jobsByCategory}">
+          <a class="card " style="width: 16rem; height:13rem; padding:5px; margin:15px">
+
             <div class="card-body col">
-              <h5 class="card-title" th:text="${category.name}" style="font-weight: bold;">...</h5>
+              <h5 class="card-title" th:text="${entry.key}" style="font-weight: bold"></h5>
+              <img th:src="@{/icons/{iconName}(iconName=${categoryIconPaths[__${entry.key}__]})}" alt="Category Icon" class="card-img-top">
+              <p class="card-text" th:text="'Number of jobs: ' + ${entry.value}"></p>
             </div>
+
           </a>
         </th:block>
       </div>
@@ -101,30 +105,24 @@
   </div>
 
   <div class="container">
-    <div class="row job-lists" style="padding:35px 5px 35px 5px; ">
+    <div class="row job-lists" style="padding:35px 5px 35px 5px;">
       <th:block th:each="job : ${jobs}">
-        <a class="card text-center" style="  text-decoration: none; ">
+        <a class="card text-center" style="text-decoration: none;">
           <b><h2 class="card-header" th:text="${job.title}"></h2></b>
-          </h2>
           <div class="card-body">
             <h5 class="card-title" th:text="${job.salary} + ' €' + ' / ' + ${job.type}"></h5>
             <p class="card-text" th:text="${job.description}" style="padding-right: 150px; padding-left:150px"></p>
             <div class="locat">
               <i class="fas fa-map-marker-alt"></i><p class="card-text" th:text="${job.location}"> <i class="fa-solid fa-location-dot"></i></p>
             </div>
-
-
           </div>
-          <div class="card-footer text-body-secondary" th:text="${job.postingDate}">
 
-          </div>
         </a>
-
       </th:block>
     </div>
   </div>
 
-  <div class=" my-5">
+  <div class="">
     <footer
             class="text-center text-lg-start text-white"
             style="background-color: #45526e">

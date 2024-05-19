@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
-    <link href='./css/styles.css' rel="stylesheet" type="text/css">
+    <link href='./../css/styles.css' rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="container-fluid">
@@ -31,13 +31,13 @@
                         <a class="nav-link" th:href="@{/job-offers}">Job offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/job-offers}">Applications</a>
+                        <a class="nav-link" href="@{/job-offers}">Applications</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/employer/settings}">Settings</a>
+                        <a class="nav-link" href="@{/admin}">Settings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  th:href="@{/about}">About us</a>
+                        <a class="nav-link" href="#" th:href="@{/about}">About us</a>
                     </li>
 
                     <li class="nav-item active">
@@ -53,75 +53,40 @@
             </div>
         </nav>
     </div>
-    <div class="row search">
+    <div class="row job-offers-title">
         <br>
-        <h2>Check out the new possibilies </h2>
-        <form class="form-search-fields">
-            <div class="search-fields">
-                <input id="search-position" placeholder="Name">
-            </div>
-            <div class="search-fields">
-                <input id="search-location" placeholder="Location">
-            </div>
-            <div>
-                <button type="submit" name="search"><i class="fas fa-search"></i></button>
-            </div>
-        </form>
-
+        <h2>Settings</h2>
 
     </div>
     <br>
-    <div class="col-12">
-        <h2 class="categories-title">Categories</h2>
-        <div class="categories mx-auto">
-            <div class="row" style="padding:35px 5px 35px 5px">
 
-                <th:block th:each="entry : ${jobsByCategory}">
-                    <a class="card " style="width: 16rem; height:13rem; padding:5px; margin:15px">
-                        <div class="card-body col">
-                            <h5 class="card-title" th:text="${entry.key}" style="font-weight: bold"></h5>
-                            <img th:src="@{/icons/{iconName}(iconName=${categoryIconPaths[__${entry.key}__]})}" alt="Category Icon" class="card-img-top">
-                            <p class="card-text" th:text="${entry.value}"></p>
-                        </div>
+<div class="container">
+    <div>
+        Update your info
+    </div>
+<div>
+    <a>Company info</a>
+    <form method="post" th:action="@{/settings/edit}" th:object="${userUpdateDTO}">
+        <div class="row form-box" style="--bs-gutter-x:0px">
+            <input type="text" class="form-control" id="id" hidden>
 
-                    </a>
-                </th:block>
+            <div class="col-md-5">
+                <label for="type" class="form-label" >companyName</label>
+                <input type="text" class="form-control" th:field="*{companyName}" id="type" placeholder="companyName" required>
             </div>
         </div>
-    </div>
-
-
-    <div class="row" style="background-color: rgb(52, 60, 87); padding: 50px 180px">
-        <div class="col-5">
-            <img th:src="@{${'images/job2.jpg'}}" style="width: 400px;"/>
-        </div>
-        <div class="col-7">
-            <h2 style="color: white">We help to get a job and find a new talent</h2>
-            <h5 style="color: white; text-align: justify; padding: 40px" >Looking for your next career move? Look no further than OurJobHub. Our platform offers a diverse range of job opportunities across various industries, making it easy for you to find the perfect job</h5>
-
 
         </div>
-    </div>
-
-    <div class="container">
-        <div class="row job-lists" style="padding:35px 5px 35px 5px;">
-            <th:block th:each="job : ${jobs}">
-                <a class="card text-center" style="text-decoration: none;">
-                    <b><h2 class="card-header" th:text="${job.title}"></h2></b>
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${job.salary} + ' €' + ' / ' + ${job.type}"></h5>
-                        <p class="card-text" th:text="${job.description}" style="padding-right: 150px; padding-left:150px"></p>
-                        <div class="locat">
-                            <i class="fas fa-map-marker-alt"></i><p class="card-text" th:text="${job.location}"> <i class="fa-solid fa-location-dot"></i></p>
-                        </div>
-                    </div>
-
-                </a>
-            </th:block>
+        <div style="padding-top:10px; text-align: center;" >
+            <button type="submit" class="btn btn-blue">Add</button>
         </div>
-    </div>
 
-    <div class="">
+    </form>
+</div>
+
+</div>
+
+    <div class=" my-5">
         <footer
                 class="text-center text-lg-start text-white"
                 style="background-color: #45526e">
@@ -132,7 +97,7 @@
                             <h6 class="text-uppercase mb-4 font-weight-bold">
                                 CareerHUB
                             </h6>
-                            <img th:src="@{${'images/logotransparent.png'}}" style="width: 200px; border: 1px solid #45526e">
+                            <img th:src="@{${'./../images/logo.png'}}" style="width: 200px; border: 1px solid #45526e">
                         </div>
                         <hr class="w-100 clearfix d-md-none" />
                         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">

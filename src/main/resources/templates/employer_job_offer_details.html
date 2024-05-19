@@ -31,13 +31,13 @@
                         <a class="nav-link" th:href="@{/job-offers}">Job offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@{/job-offers}">Applications</a>
+                        <a class="nav-link" th:href="@{/job-offers}">Applications</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@{/admin}">Settings</a>
+                        <a class="nav-link" th:href="@{/employer/settings/{id} (id=${user.id})">Settings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" th:href="@{/about}">About us</a>
+                        <a class="nav-link" th:href="#" th:href="@{/about}">About us</a>
                     </li>
 
                     <li class="nav-item active">
@@ -69,7 +69,7 @@
                 <h4 th:text="${job.type}" class="job-offer-details"></h4>
                 <br>
                 <h5><b>Salary</b></h5>
-                <h4 th:text="${job.salary}" class="job-offer-details"></h4>
+                <h4 th:text="${job.salary} + ' €'" class="job-offer-details"></h4>
             </div>
             <div class="col-7 justify-content-md-center"  >
                 <h5><b>Location</b></h5>
