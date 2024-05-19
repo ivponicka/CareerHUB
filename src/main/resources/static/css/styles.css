@@ -283,6 +283,27 @@ a:hover {
   width: 150px
 }
 
+
+.locat{
+  display:flex;
+  flex-direction:row;
+  justify-content: center;
+  align-items: baseline;
+
+}
+
+.list-job-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.list-job-description{
+  text-align: justify;
+padding: 15px 5px;
+}
+
 .card-front,
 .card-back {
   width: 100%;

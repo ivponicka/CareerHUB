@@ -21,4 +21,7 @@ public interface JobService {
     public void deleteJob(Long id);
 
     public List<Job> getJobsByCategory(Category category);
+
+
+    public List<Job> getAllJobsWithUsers();
 }

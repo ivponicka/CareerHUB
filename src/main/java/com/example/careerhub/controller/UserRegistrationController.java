@@ -4,7 +4,9 @@ package com.example.careerhub.controller;
 import com.example.careerhub.dto.*;
 import com.example.careerhub.model.Category;
 import com.example.careerhub.model.Job;
+import com.example.careerhub.repository.UserRepository;
 import com.example.careerhub.service.JobService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +19,11 @@ import com.example.careerhub.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -33,6 +37,8 @@ public class UserRegistrationController {
     @Autowired
     JobService jobService;
 
+    @Autowired
+    UserRepository userRepository;
 
     public UserRegistrationController(UserService userService) {
         this.userService = userService;
@@ -94,7 +100,7 @@ public class UserRegistrationController {
 
     @GetMapping("/employer-home")
     public String getEmployerHome(Model model) {
-        List<Job> jobs = jobService.getAllJobs();
+        List<Job> jobs = jobService.getAllJobsWithUsers();
         Map<String, Long> jobsByCategory = jobs.stream()
                 .collect(Collectors.groupingBy(Job::getCategory, Collectors.counting()));
         model.addAttribute("jobsByCategory", jobsByCategory);
@@ -132,7 +138,12 @@ public class UserRegistrationController {
 
 
     @PostMapping("/employer/add-job")
-    public String addJobPost(@ModelAttribute("jobDTO") JobDTO jobDTO) {
+    public String addJobPost(@ModelAttribute("jobDTO") JobDTO jobDTO, Principal principal) {
+        String username = principal.getName();
+        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmail(username));
+        User user = optionalUser.orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+
         Job job = new Job();
         job.setId(jobDTO.getId());
         job.setTitle(jobDTO.getTitle());
@@ -143,6 +154,8 @@ public class UserRegistrationController {
         job.setRequirements(jobDTO.getRequirements());
         job.setLocation(jobDTO.getLocation());
         job.setDescription(jobDTO.getDescription());
+        job.setUser(user);
+
         jobService.addJob(job);
         return "redirect:/job-offers";
     }

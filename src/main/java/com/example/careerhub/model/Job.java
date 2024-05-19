@@ -29,4 +29,9 @@ public class Job {
     private String location;
     @Column(length = 1000)
     private String description;
+
+    // Define ManyToOne relationship with User entity
+    @ManyToOne(fetch = FetchType.LAZY) // FetchType.LAZY is used for better performance
+    @JoinColumn(name = "user_id", nullable = false) // Define the foreign key column
+    private User user; // Reference to the User who posted this job
 }

@@ -50,5 +50,6 @@ public class User
     private String imagePath;
     @Column(length = 1000)
     private String companyDescription;
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Job> jobs;
 }

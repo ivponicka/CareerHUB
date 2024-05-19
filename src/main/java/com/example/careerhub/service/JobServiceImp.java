@@ -41,5 +41,8 @@ public class JobServiceImp implements JobService {
          return jobRepository.findByCategory(category);
     }
 
-
+    @Override
+    public List<Job> getAllJobsWithUsers() {
+        return jobRepository.findAllWithUsers();
+    }
 }
