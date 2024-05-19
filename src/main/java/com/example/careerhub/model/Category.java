@@ -2,18 +2,18 @@ package com.example.careerhub.model;
 
 public enum Category {
 
-    AGRICULTURE ("agriculture.jpg"),
-    ART ("art.svg"),
-    BUSINESS  ("business.svg"),
-    CONSTRUCTION  ("construction.svg"),
-    EDUCATION  ("education.svg"),
-    ENTERTAINMENT  ("entertainment.svg"),
-    FINANCE  ("finance.svg"),
-    HEALTHCARE  ("healthcare.svg"),
-    HR  ("hr.svg"),
-    IT ("it.svg"),
-    SPORT  ("sport.svg"),
-    SERVICE  ("service.svg");
+    AGRICULTURE ("agriculture.png"),
+    ART ("arts.png"),
+    BUSINESS  ("business.png"),
+    CONSTRUCTION  ("construction.png"),
+    EDUCATION  ("education.png"),
+    FINANCE  ("finance.png"),
+    HEALTHCARE  ("healthcare.png"),
+    HR  ("hr.png"),
+    IT ("it.png"),
+    MEDIA ("media.png"),
+    SPORT  ("sport.png"),
+    SERVICE  ("service.png");
     private String iconPath;
 
     Category(String iconPath) {

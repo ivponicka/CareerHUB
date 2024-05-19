@@ -39,7 +39,6 @@
                     <li class="nav-item">
                         <a class="nav-link"  th:href="@{/about}">About us</a>
                     </li>
-
                     <li class="nav-item active">
                         <a
                                 class="nav-link"
@@ -68,14 +67,12 @@
             </div>
         </form>
 
-
     </div>
     <br>
     <div class="col-12">
         <h2 class="categories-title">Categories</h2>
         <div class="categories mx-auto">
             <div class="row" style="padding:35px 5px 35px 5px">
-
                 <th:block th:each="entry : ${jobsByCategory}">
                     <a class="card " style="width: 16rem; height:13rem; padding:5px; margin:15px">
                         <div class="card-body col">
@@ -103,20 +100,38 @@
         </div>
     </div>
 
+
     <div class="container">
         <div class="row job-lists" style="padding:35px 5px 35px 5px;">
-            <th:block th:each="job : ${jobs}">
-                <a class="card text-center" style="text-decoration: none;">
-                    <b><h2 class="card-header" th:text="${job.title}"></h2></b>
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${job.salary} + ' €' + ' / ' + ${job.type}"></h5>
-                        <p class="card-text" th:text="${job.description}" style="padding-right: 150px; padding-left:150px"></p>
-                        <div class="locat">
-                            <i class="fas fa-map-marker-alt"></i><p class="card-text" th:text="${job.location}"> <i class="fa-solid fa-location-dot"></i></p>
-                        </div>
-                    </div>
+            <h2 class="categories-title" style="padding-bottom: 20px">Recently added job offers</h2>
+            <th:block th:with="maxIndex=${jobs.size() - 1}">
+                <th:block th:each="i : ${#numbers.sequence(0, 2)}">
+                    <th:block th:with="index=${maxIndex - i}">
+                        <a class="card text-center" style="text-decoration: none;">
+                            <b><h2 class="card-header" th:text="${jobs[index].title}"></h2></b>
+                            <div class="row">
+                                <div class="col-3" style="align-items:center">
+                                    <img th:src="@{'/images/' + ${jobs[index].user.imageName}}"
+                                         alt="${jobs[index].user.imageName}" width="150px" height="100px" style="object-fit: cover">
+                                </div>
+                                <div class="col-6">
+                                    <p  th:text="${jobs[index].description}"  class="list-job-description"></p></div>
+                                <div class="col-3 list-job-info">
+                                    <h5 class="card-title"
+                                        th:text="${jobs[index].salary} + ' €' + ' / ' + ${jobs[index].type}"></h5>
 
-                </a>
+                                    <div class="locat">
+                                        <i class="fas fa-map-marker-alt" style="padding-right: 10px"></i>
+                                        <h5 th:text="${jobs[index].location}"><i
+                                                class="fa-solid fa-location-dot"></i></h5>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </a>
+                    </th:block>
+                </th:block>
             </th:block>
         </div>
     </div>

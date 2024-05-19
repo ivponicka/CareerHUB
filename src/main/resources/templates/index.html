@@ -85,9 +85,8 @@
                             <h5 class="card-title" th:text="${entry.key}" style="font-weight: bold"></h5>
                             <img th:src="@{/icons/{iconName}(iconName=${categoryIconPaths[__${entry.key}__]})}"
                                  alt="Category Icon" class="card-img-top">
-                            <p class="card-text" th:text="'Number of jobs: ' + ${entry.value}"></p>
+                            <p class="card-text" th:text="${entry.value}"></p>
                         </div>
-
                     </a>
                 </th:block>
             </div>
@@ -103,13 +102,10 @@
             <h5 style="color: white; text-align: justify; padding: 40px">Looking for your next career move? Look no
                 further than OurJobHub. Our platform offers a diverse range of job opportunities across various
                 industries, making it easy for you to find the perfect job</h5>
-
-
         </div>
     </div>
 
     <div class="container">
-
         <div class="row job-lists" style="padding:35px 5px 35px 5px;">
             <h2 class="categories-title" style="padding-bottom: 20px">Recently added job offers</h2>
             <th:block th:with="maxIndex=${jobs.size() - 1}">
@@ -121,7 +117,6 @@
                                 <div class="col-3" style="align-items:center">
                                     <img th:src="@{'/images/' + ${jobs[index].user.imageName}}"
                                          alt="${jobs[index].user.imageName}" width="150px" height="100px" style="object-fit: cover">
-
                                 </div>
                                 <div class="col-6">
                                     <p  th:text="${jobs[index].description}"  class="list-job-description"></p></div>
@@ -156,7 +151,7 @@
                             <h6 class="text-uppercase mb-4 font-weight-bold">
                                 CareerHUB
                             </h6>
-                            <img th:src="@{${'images/logo.png'}}" style="width: 200px; border: 1px solid #45526e">
+                            <img th:src="@{${'images/logotransparent.png'}}" style="width: 200px; border: 1px solid #45526e">
                         </div>
                         <hr class="w-100 clearfix d-md-none"/>
                         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
