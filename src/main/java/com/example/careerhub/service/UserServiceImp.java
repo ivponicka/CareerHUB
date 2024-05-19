@@ -3,6 +3,7 @@ package com.example.careerhub.service;
 
 import com.example.careerhub.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -85,6 +86,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User findUserByEmail(String email) {
+
         return userRepository.findByEmail(email);
     }
 

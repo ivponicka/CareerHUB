@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.example.careerhub.dto.UserRegistrationDTO;
 import com.example.careerhub.model.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -18,5 +19,7 @@ public interface UserService  {
     public List<User> getAllUsers();
 
     Optional<User> findUserByID(Long id);
+
+
 
 }

@@ -116,11 +116,7 @@ public class UserRegistrationController {
         return "employer_home";
     }
 
-    @GetMapping("/job-offers")
-    public String jobOffers(Model model) {
-        model.addAttribute("jobs", jobService.getAllJobs());
-        return "employer_job_offers";
-    }
+
 
     @GetMapping("/employer/settings")
     public String usersSettings(Model model) {
@@ -142,7 +138,6 @@ public class UserRegistrationController {
         String username = principal.getName();
         Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmail(username));
         User user = optionalUser.orElseThrow(() -> new EntityNotFoundException("User not found"));
-
 
         Job job = new Job();
         job.setId(jobDTO.getId());
@@ -171,7 +166,11 @@ public class UserRegistrationController {
         jobService.deleteJob(id);
         return "redirect:/job-offers";
     }
-
+    @GetMapping("employer/edit/{id}")
+    public String editob(@PathVariable long id, Model model){
+        model.addAttribute("job", jobService.getJobByID(id).get());
+        return "employer_job_offer_edit";
+    }
 
 
 }
