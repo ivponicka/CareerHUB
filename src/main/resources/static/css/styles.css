@@ -4,7 +4,7 @@
 }
 
 * {
-    font-family:  font-family: 'Montserrat';
+    font-family: 'Montserrat';
 }
 
 a {
@@ -13,6 +13,10 @@ a {
 
 .logo {
     height: 60px;
+}
+
+.dark-blue{
+    color: var(--darkBlue);
 }
 
 .nav-item a {
@@ -165,7 +169,7 @@ a {
 }
 
 .company-info-details{
-font-weight: bold;
+    font-weight: bold;
     border: 2px solid var(--darkBlue);
     color: var(--darkBlue);
 }
@@ -262,14 +266,23 @@ a:hover {
     position: relative;
     width: 640px;
     max-width: 100%;
-    height: 700px;
+    height: 800px;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
     perspective: 800px;
     margin-top: 40px;
     -webkit-box-shadow: 5px 5px 14px 5px rgba(0,0,0,0.71);
     box-shadow: 5px 5px 14px 5px rgba(0,0,0,0.71);
+}
 
+.card-3d-wrap-admin {
+    position: relative;
+    width: 640px;
+    max-width: 100%;
+    height: 400px;
+    margin-top: 40px;
+    -webkit-box-shadow: 5px 5px 14px 5px rgba(0,0,0,0.71);
+    box-shadow: 5px 5px 14px 5px rgba(0,0,0,0.71);
 }
 
 
@@ -336,6 +349,7 @@ a:hover {
     transform-style: preserve-3d;
     backface-visibility: hidden
 }
+
 
 
 .card-back {
@@ -479,3 +493,16 @@ a:hover {
     box-shadow: 0 8px 24px 0 rgba(255, 255, 255, .2)
 }
 
+.about-us{
+    padding-top: 35px;
+    color: white;
+    font-weight: bold;
+}
+
+.about-us-text{
+    color: white;
+}
+
+.accordion-button:not(.collapsed){
+    color: var(--darkBlue);
+}

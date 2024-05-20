@@ -23,21 +23,20 @@
     <div class="row">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
-                <a class="navbar-brand" href="#"><img th:src="@{${'/images/logo.png'}}"  th:href="@{/}" class="logo"/></a>
+                <a class="navbar-brand" href="#" th:href="@{/home}"><img th:src="@{${'/images/logo.png'}}" th:href="@{/}"
+                                                      class="logo"/></a>
 
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="#" th:href="@{/home}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:href="@{/register}">Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  th:href="@{/login}">Login</a>
+                        <a class="nav-link" th:href="@{/login}">Login</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Admin</a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:href="@{/about}">About us</a>
                     </li>
@@ -47,54 +46,44 @@
     </div>
     <div class="row" style="height:50px; background-color:rgb(162,168,182)">
     </div>
-    <div class="row" style="padding-bottom: 150px; background-color:#eee">
+    <div class="row" style="background-color:#eee">
         <div class="section">
             <div class="container">
-                <div class="row full-height justify-content-center">
+                <div class="row justify-content-center">
                     <div class="col-12 text-center align-self-center py-5">
                         <div class="section-register pb-5 pt-5 pt-sm-2 text-center">
-                            <h6 class="mb-6 pb-6">
-                                <h3  >EMPLOYER | SEEKER</h3>
-                                <p style="padding-bottom:30px"><em>just click below</em></p>
-                            </h6>
-                            <input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
-                            <label for="reg-log" ></label>
-
-                            <div class="card-3d-wrap mx-auto">
+                            <div class="card-3d-wrap-admin mx-auto">
                                 <div class="card-3d-wrapper">
                                     <div th:if=${param.success}>
-                                        <div class="alert alert-info">You've successfully registered the account</div>
+                                        <div class="alert alert-info">You've successfully logged into the account</div>
                                     </div>
                                     <div class="card-front">
                                         <div class="center-wrap">
+                                            <h3 style="padding-bottom: 30px">Log into you account</h3>
                                             <div class="section-register text-center">
                                                 <form th:action="@{/login}" method="post">
                                                     <div class="form-group">
-                                                        <input type="text" id="username" name="username" class="form-style"
-                                                               placeholder="Enter your email address" />
+                                                        <input type="text" id="username" name="username"
+                                                               class="form-style"
+                                                               placeholder="Enter your email address"/>
                                                         <i class="input-icon fa fa-at"></i>
                                                     </div>
-
                                                     <div class="form-group mt-2" style="padding-top:30px">
-
-                                                        <input type="password" id="password" name="password" class="form-style"
-                                                               placeholder="Enter your password" />
+                                                        <input type="password" id="password" name="password"
+                                                               class="form-style"
+                                                               placeholder="Enter your password"/>
                                                         <i class="input-icon fa fa-lock" style="padding-top:30px"></i>
                                                     </div>
                                                     <div th:if="${param.error}" class="alert alert-error text-danger">
                                                         Invalid username or password.
                                                     </div>
-
+                                                    <div th:if="${error}" class="alert alert-danger" role="alert"
+                                                         th:text="${param.error}"></div>
                                                     <input value="Login" class="btn mt-4" type="submit"
                                                            style="color:#1f2029; border: 1px solid #1f2029;">
                                                     <br>
                                                     <br>
                                                     <br>
-                                                    <span style="font-family: 'Montserrat'">Don't have an account?
-                                                       <a class="linkControl" href="./register.html"
-                                                                                   th:href="@{/register}"> <p>Register here</p></a></span>
-                                                    <br>
-
                                                 </form>
                                             </div>
                                         </div>
@@ -108,32 +97,29 @@
             </div>
 
             <div class="row">
+
                 <footer
                         class="text-center text-lg-start text-white"
-                        style="background-color: #45526e">
+                        style="background-color: #45526e; width: 100%">
                     <div class="container p-4 pb-0">
                         <section class="">
                             <div class="row">
                                 <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-                                    <h6 class="text-uppercase mb-4 font-weight-bold">
-                                        CareerHUB
-                                    </h6>
-                                    <img th:src="@{${'images/logo.png'}}" style="width: 200px; border: 1px solid #45526e">
+                                    <a th:href="@{/home}"><img th:src="@{${'images/logotransparent.png'}}"
+                                                               style="width: 200px; border: 1px solid #45526e">
+                                    </a>
                                 </div>
                                 <hr class="w-100 clearfix d-md-none"/>
                                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
                                     <h6 class="text-uppercase mb-4 font-weight-bold">LINKS</h6>
                                     <p>
-                                        <a class="text-white">Register</a>
+                                        <a class="text-white" th:href="@{/register}">Register</a>
                                     </p>
                                     <p>
-                                        <a class="text-white">Login</a>
+                                        <a class="text-white" th:href="@{/login}">Login</a>
                                     </p>
                                     <p>
-                                        <a class="text-white">Admin</a>
-                                    </p>
-                                    <p>
-                                        <a class="text-white">About us</a>
+                                        <a class="text-white" th:href="@{about}">About us</a>
                                     </p>
                                 </div>
                                 <hr class="w-100 clearfix d-md-none"/>
@@ -143,7 +129,6 @@
                                     <p><i class="fas fa-home mr-3"></i> Warsaw, 12-456, Poland</p>
                                     <p><i class="fas fa-envelope mr-3"></i> info@gmail.com</p>
                                     <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-                                    <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
                                 </div>
                             </div>
                         </section>
@@ -151,9 +136,9 @@
                         <hr class="my-3">
                         <section class="p-3 pt-0">
                             <div class="row d-flex align-items-center">
-                                <div class="col-md-7 col-lg-8 text-center text-md-end">
+                                <div class="col-md-5 col-lg-5 text-center text-md-end">
                                     <div class="p-3">
-                                        <a class="text-white" href="#"
+                                        <a class="text-white" href="#" th:href="@{/home}"
                                         >CareerHUB © 2024</a
                                         >
                                     </div>

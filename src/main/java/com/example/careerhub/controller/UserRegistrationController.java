@@ -74,6 +74,11 @@ public class UserRegistrationController {
         return "register";
     }
 
+    @GetMapping("about")
+    public String aboutUs(){
+        return "about";
+    }
+
     @SuppressWarnings("null")
     @PostMapping("/registerUser/save")
     public String registration(@Valid @ModelAttribute("employer") UserRegistrationDTO userRegistrationDTO,
