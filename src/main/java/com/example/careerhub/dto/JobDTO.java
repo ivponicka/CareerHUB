@@ -18,7 +18,7 @@ public class JobDTO {
     private Long id;
 
     private String category;
-    private String title;
+    private String name;
     private String type;
 
     private String salary;

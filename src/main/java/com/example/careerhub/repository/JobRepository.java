@@ -19,4 +19,7 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     List<Job> findAllWithUsers();
     List<Job> findByUser(User user);
     Page<Job> findByCategory(String category, Pageable pageable);
+    List<Job> findByNameContainingAndLocationContaining(String title, String location);
+    List<Job> findByNameContaining(String title);
+    List<Job> findByLocationContaining(String location);
 }

@@ -14,30 +14,29 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
-    <link href='./../css/styles.css' rel="stylesheet" type="text/css">
+    <link href='./css/styles.css' rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="container-fluid">
     <div class="row">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
-                <a class="navbar-brand" href="#"><img th:src="@{${'/images/logo.png'}}" class="logo"/></a>
+                <a class="navbar-brand" href="#" th:href="@{/home}"><img th:src="@{${'/images/logo.png'}}" th:href="@{/}"
+                                                      class="logo"/></a>
 
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" th:href="@{/employer-home}">Home</a>
+                        <a class="nav-link active" aria-current="page" href="#" th:href="@{/home}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/job-offers}">Job offers</a>
+                        <a class="nav-link" href="#" th:href="@{/register}">Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/job-offers}">Applications</a>
+                        <a class="nav-link" href="#" th:href="@{/login}">Login</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/employer/settings}">Settings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"  th:href="@{/about}">About us</a>
+                        <a class="nav-link" href="#" th:href="@{/about}">About us</a>
                     </li>
 
                     <li class="nav-item active">
@@ -53,74 +52,51 @@
             </div>
         </nav>
     </div>
-    <div class="row job-offers-title">
+    <div class="row search">
         <br>
-        <h2>Add new job</h2>
-
-    </div>
-    <br>
-    <div class="container">
-        <form method="post" th:action="@{/employer/add-job}" th:object="${jobDTO}">
-            <div class="row form-box" style="--bs-gutter-x:0px">
-                <input type="text" class="form-control" id="id" th:field="*{id}" hidden>
-                <div class="form-group col-md-5" style="padding-right: 10px">
-                    <label for="category">Category</label>
-                    <select id="category" class="form-control" th:field="*{category}">
-                        <option th:each="category : ${T(com.example.careerhub.model.Category).values()}"
-                                th:value="${category}" th:text="${category}"></option>
-                    </select>
-                </div>
-                <div class="col-md-5">
-                    <label for="type" class="form-label" >Type</label>
-                    <input type="text" class="form-control" th:field="*{type}" id="type" placeholder="eg. part-time" required>
-                </div>
+        <div class="search-captions">
+            <h2>Find your desired job </h2>
+            <h4>Discover opportunities that align with your skills and passions</h4>
+        </div>
+        <form class="form-search-fields" action="/search-jobs" method="get">
+            <div class="search-fields">
+                <input id="search-position" name="name" placeholder="Name">
             </div>
-            <div class="row form-box" style="--bs-gutter-x:0px">
-                <div class="form-group col-md-5" style="padding-right: 10px">
-                    <label for="inputName">Title</label>
-                    <input type="text" class="form-control" id="inputName" th:field="*{name}" placeholder="eg. salesman">
-                </div>
-                <div class="form-group col-md-5">
-                    <label for="inputSalary">Salary</label>
-                    <input type="text" class="form-control" id="inputSalary" th:field="*{salary}" placeholder="eg. 5000">
-                </div>
+            <div class="search-fields">
+                <input id="search-location" name="location" placeholder="Location">
             </div>
-            <div class="form-group col-md-10">
-                <label for="inputRequirements">Requirements</label>
-                <textarea type="text" class="form-control" rows="3" id="inputRequirements"
-                         th:field="*{requirements}" placeholder="eg. knowledge of MS"></textarea>
+            <div>
+                <button type="submit" name="search"><i class="fas fa-search"></i></button>
             </div>
-            <div class="form-group col-md-10">
-                <label for="inputExperience">Experience</label>
-                <input type="text" class="form-control" id="inputExperience" th:field="*{experience}" placeholder="eg. 2">
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="inputLocation">Location</label>
-                    <input type="text" class="form-control" th:field="*{location}" id="inputLocation">
-                </div>
-
-                <div class="form-group col-md-10">
-                    <label for="inputDescription">Description</label>
-                    <textarea type="text" class="form-control" rows="3" th:field="*{description}" id="inputDescription"
-                              placeholder="eg. this job..."></textarea>
-                </div>
-            </div>
-            <div style="padding-top:10px; text-align: center;" >
-                <button type="submit" class="btn btn-blue">Add</button>
-            </div>
-
         </form>
-
     </div>
-
 
     <div class="container">
-
+        <div class="row job-lists" style="padding:35px 5px 35px 5px;">
+            <th:block th:each="job : ${jobs}">
+                <a class="card text-center"  th:href="@{/view-job/{id}(id=${job.id})}" style="text-decoration: none;">
+                    <b><h2 class="card-header" th:text="${job.name}"></h2></b>
+                    <div class="row">
+                        <div class="col-3" style="align-items:center">
+                            <img th:src="@{'/images/' + ${job.user.imageName}}"
+                                 alt="${job.user.imageName}" width="150px" height="100px" style="object-fit: cover">
+                        </div>
+                        <div class="col-6">
+                            <p th:text="${job.description}" class="list-job-description"></p>
+                        </div>
+                        <div class="col-3 list-job-info">
+                            <h5 class="card-title" th:text="${job.salary} + ' €' + ' / ' + ${job.type}"></h5>
+                            <div class="locat">
+                                <i class="fas fa-map-marker-alt" style="padding-right: 10px"></i>
+                                <h5 th:text="${job.location}"><i class="fa-solid fa-location-dot"></i></h5>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </th:block>
+        </div>
     </div>
-
-    <div class=" my-5">
-
+    <div class="">
         <footer
                 class="text-center text-lg-start text-white"
                 style="background-color: #45526e; width: 100%">
@@ -128,7 +104,7 @@
                 <section class="">
                     <div class="row">
                         <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-                            <a th:href="@{/employer-home}"><img th:src="@{${'./../images/logotransparent.png'}}"
+                            <a th:href="@{/home}"><img th:src="@{${'images/logotransparent.png'}}"
                                                        style="width: 200px; border: 1px solid #45526e">
                             </a>
                         </div>
@@ -155,7 +131,6 @@
                         </div>
                     </div>
                 </section>
-
                 <hr class="my-3">
                 <section class="p-3 pt-0">
                     <div class="row d-flex align-items-center">
@@ -166,29 +141,20 @@
                                 >
                             </div>
                         </div>
-
                         <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
-                            <a
-                                    class="btn btn-outline-light btn-floating m-1 text-white"
-
+                            <a class="btn btn-outline-light btn-floating m-1 text-white"
                                     role="button"
                             ><i class="fab fa-facebook-f"></i
                             ></a>
-                            <a
-                                    class="btn btn-outline-light btn-floating m-1 text-white"
-
+                            <a class="btn btn-outline-light btn-floating m-1 text-white"
                                     role="button"
                             ><i class="fab fa-twitter"></i
                             ></a>
-                            <a
-                                    class="btn btn-outline-light btn-floating m-1 text-white"
-
+                            <a class="btn btn-outline-light btn-floating m-1 text-white"
                                     role="button"
                             ><i class="fab fa-google"></i
                             ></a>
-                            <a
-                                    class="btn btn-outline-light btn-floating m-1 text-white"
-
+                            <a class="btn btn-outline-light btn-floating m-1 text-white"
                                     role="button"
                             ><i class="fab fa-instagram"></i
                             ></a>
@@ -200,5 +166,4 @@
     </div>
 </div>
 </body>
-
 </html>

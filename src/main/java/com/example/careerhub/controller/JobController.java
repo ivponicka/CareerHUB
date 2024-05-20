@@ -65,4 +65,12 @@ public class JobController {
         return "jobs_category_job_offers"; // Ensure this is the correct template name
     }
 
+    @GetMapping("/search-jobs")
+    public String searchJobs(@RequestParam(required = false) String name, @RequestParam(required = false) String location, Model model){
+        List<Job> jobs = jobService.searchJobs(name, location);
+        model.addAttribute("jobs", jobs);
+        return "jobs_search_job_offers";
+    }
+
+
 }

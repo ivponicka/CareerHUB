@@ -144,7 +144,7 @@ public class UserRegistrationController {
 
         Job job = new Job();
         job.setId(jobDTO.getId());
-        job.setTitle(jobDTO.getTitle());
+        job.setName(jobDTO.getName());
         job.setCategory(jobDTO.getCategory());
         job.setType(jobDTO.getType());
         job.setExperience(jobDTO.getExperience());

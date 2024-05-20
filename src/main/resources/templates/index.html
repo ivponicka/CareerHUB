@@ -54,13 +54,17 @@
     </div>
     <div class="row search">
         <br>
-        <h2>Check out the new possibilies </h2>
-        <form class="form-search-fields">
+        <div class="search-captions">
+            <h2>Find your desired job </h2>
+            <h4>Discover opportunities that align with your skills and passions</h4>
+        </div>
+
+        <form class="form-search-fields" action="/search-jobs" method="get">
             <div class="search-fields">
-                <input id="search-position" placeholder="Name">
+                <input id="search-position" name="name" placeholder="Name">
             </div>
             <div class="search-fields">
-                <input id="search-location" placeholder="Location">
+                <input id="search-location" name="location" placeholder="Location">
             </div>
             <div>
                 <button type="submit" name="search"><i class="fas fa-search"></i></button>
@@ -86,13 +90,13 @@
         </div>
     </div>
 
-    <div class="row" style="background-color: rgb(52, 60, 87); padding: 50px 180px">
+    <div class="row caption">
         <div class="col-5">
-            <img th:src="@{${'images/job2.jpg'}}" style="width: 400px;"/>
+            <img th:src="@{${'images/job2.jpg'}}" class="picture-caption"/>
         </div>
         <div class="col-7">
             <h2 style="color: white">We help to get a job and find a new talent</h2>
-            <h5 style="color: white; text-align: justify; padding: 40px">Looking for your next career move? Look no
+            <h5 class="picture-caption-text">Looking for your next career move? Look no
                 further than OurJobHub. Our platform offers a diverse range of job opportunities across various
                 industries, making it easy for you to find the perfect job</h5>
         </div>
@@ -105,7 +109,7 @@
                 <th:block th:each="i : ${#numbers.sequence(0, 2)}">
                     <th:block th:with="index=${maxIndex - i}">
                         <a class="card text-center" th:href="@{/view-job/{id}(id=${jobs[index].id})}" style="text-decoration: none;">
-                            <b><h2 class="card-header" th:text="${jobs[index].title}"></h2></b>
+                            <b><h2 class="card-header" th:text="${jobs[index].name}"></h2></b>
                             <div class="row">
                                 <div class="col-3" style="align-items:center">
                                     <img th:src="@{'/images/' + ${jobs[index].user.imageName}}"

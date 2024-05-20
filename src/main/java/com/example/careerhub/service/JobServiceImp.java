@@ -49,4 +49,17 @@ public class JobServiceImp implements JobService {
     public List<Job> getJobsByUser(User user) {
         return jobRepository.findByUser(user);
     }
+
+    @Override
+    public List<Job> searchJobs(String name, String location) {
+        if(name != null && !name.isEmpty() && location != null && !location.isEmpty()){
+            return jobRepository.findByNameContainingAndLocationContaining(name, location);
+        } else if (name != null && !name.isEmpty()){
+            return  jobRepository.findByNameContaining(name);
+        } else if (location != null && !location.isEmpty()){
+            return  jobRepository.findByLocationContaining(location);
+        } else  {
+            return jobRepository.findAll();
+        }
+    }
 }

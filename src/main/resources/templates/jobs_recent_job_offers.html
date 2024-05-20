@@ -54,7 +54,10 @@
     </div>
     <div class="row search">
         <br>
-        <h2>Check out the new possibilies </h2>
+        <div class="search-captions">
+            <h2>Find your desired job </h2>
+            <h4>Discover opportunities that align with your skills and passions</h4>
+        </div>
         <form class="form-search-fields">
             <div class="search-fields">
                 <input id="search-position" placeholder="Name">
@@ -73,7 +76,7 @@
             <h2 class="categories-title" style="padding-bottom: 20px">Recently added job offers</h2>
             <th:block th:each="job : ${jobPage.content}">
                 <a class="card text-center"  th:href="@{/view-job/{id}(id=${job.id})}" style="text-decoration: none;">
-                    <b><h2 class="card-header" th:text="${job.title}"></h2></b>
+                    <b><h2 class="card-header" th:text="${job.name}"></h2></b>
                     <div class="row">
                         <div class="col-3" style="align-items:center">
                             <img th:src="@{'/images/' + ${job.user.imageName}}"

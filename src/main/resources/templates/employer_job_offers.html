@@ -63,7 +63,7 @@
             <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Title</th>
+                <th scope="col">Name</th>
                 <th scope="col">Category</th>
                 <th scope="col">Type</th>
                 <th scope="col">Location</th>
@@ -74,7 +74,7 @@
             <tbody>
             <tr th:each="job, i:${jobs}">
                 <th scope="row" th:text="${i.index+1}">1</th>
-                <td th:text="${job.title}"></td>
+                <td th:text="${job.name}"></td>
                 <td th:text="${job.category}"></td>
                 <td th:text="${job.type}"></td>
                 <td th:text="${job.location}"></td>
