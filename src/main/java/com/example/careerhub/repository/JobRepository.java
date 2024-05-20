@@ -15,11 +15,8 @@ import java.util.List;
 public interface JobRepository extends JpaRepository<Job, Long> {
     List<Job> findByCategory(Category category);
     List<Job> findAll();
-
     @Query("SELECT j FROM Job j JOIN FETCH j.user")
     List<Job> findAllWithUsers();
-
     List<Job> findByUser(User user);
-
     Page<Job> findByCategory(String category, Pageable pageable);
 }

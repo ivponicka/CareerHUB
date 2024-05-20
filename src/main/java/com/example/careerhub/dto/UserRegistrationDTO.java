@@ -24,7 +24,6 @@ public class UserRegistrationDTO {
     private String email;
     @NotEmpty(message = "Password should not be empty")
     private String password;
-
     private String phone;
 
     private String companyName;

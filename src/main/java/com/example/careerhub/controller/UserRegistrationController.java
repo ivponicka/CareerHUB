@@ -29,8 +29,6 @@ import java.util.stream.Collectors;
 
 @Controller
 public class UserRegistrationController {
-
-
     @Autowired
     private UserService userService;
 

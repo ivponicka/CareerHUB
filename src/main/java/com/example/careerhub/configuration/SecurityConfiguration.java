@@ -1,6 +1,7 @@
 package com.example.careerhub.configuration;
 
-import com.example.careerhub.service.CustomerSeekerDetailsService;
+import com.example.careerhub.service.CustomerDetailsService.CustomerAdminDetailsService;
+import com.example.careerhub.service.CustomerDetailsService.CustomerSeekerDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +28,10 @@ public class SecurityConfiguration {
     @Qualifier("customerSeekerDetailsService")
     private CustomerSeekerDetailsService seekerDetailsService;
 
+    @Autowired
+    @Qualifier("customerAdminDetailsService")
+    private CustomerAdminDetailsService adminDetailsService;
+
     @Bean
     public static PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -39,8 +44,8 @@ public class SecurityConfiguration {
                         authorize
 
                                 .requestMatchers("/", "/index","login", "/js/**", "/register",  "register/**", "/static/**").permitAll()
-                                .requestMatchers("/admin_home").hasAuthority("USER")
-
+                                .requestMatchers("/admin_home", "/admin/**").hasAuthority("ADMIN")
+                                .requestMatchers("employer", "/employer/**").hasAuthority("USER")
                                                                 .anyRequest().permitAll()
                 ).formLogin(
                         form -> form
@@ -66,11 +71,11 @@ public class SecurityConfiguration {
         auth
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
-
-
         auth
                 .userDetailsService(seekerDetailsService)
                 .passwordEncoder(passwordEncoder());
-                
+        auth
+                .userDetailsService(adminDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 }

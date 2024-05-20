@@ -19,32 +19,22 @@ public class User
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable=false)
     private String firstName;
-
     @Column(nullable=false)
     private String lastName;
-
     @Column(nullable=false, unique=true)
     private String email;
-
     @Column(nullable=false)
     private String password;
-
     private String phone;
-
-
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinTable(
             name="users_roles",
             joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles = new ArrayList<>();
-
-
     private String companyName;
-
     private String location;
     private String imageName;
     private String imagePath;

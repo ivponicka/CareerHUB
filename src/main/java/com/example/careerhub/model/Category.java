@@ -15,11 +15,9 @@ public enum Category {
     SPORT  ("sport.png"),
     SERVICE  ("service.png");
     private String iconPath;
-
     Category(String iconPath) {
         this.iconPath = iconPath;
     }
-
     public String getIconPath() {
         return iconPath;
     }

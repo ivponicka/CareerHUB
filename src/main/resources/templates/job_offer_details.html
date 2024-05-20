@@ -118,22 +118,22 @@
                             <h6 class="text-uppercase mb-4 font-weight-bold">
                                 CareerHUB
                             </h6>
-                            <img th:src="@{${'images/logo.png'}}" style="width: 200px; border: 1px solid #45526e">
+                            <img th:src="@{${'./../images/logotransparent.png'}}" style="width: 200px; border: 1px solid #45526e">
                         </div>
                         <hr class="w-100 clearfix d-md-none"/>
                         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
                             <h6 class="text-uppercase mb-4 font-weight-bold">LINKS</h6>
                             <p>
-                                <a class="text-white">Register</a>
+                                <a class="text-white" th:href="@{/register}">Register</a>
                             </p>
                             <p>
-                                <a class="text-white">Login</a>
+                                <a class="text-white" th:href="@{/login}">Login</a>
                             </p>
                             <p>
                                 <a class="text-white">Admin</a>
                             </p>
                             <p>
-                                <a class="text-white">About us</a>
+                                <a class="text-white" th:href="@{/about}">About us</a>
                             </p>
                         </div>
                         <hr class="w-100 clearfix d-md-none"/>

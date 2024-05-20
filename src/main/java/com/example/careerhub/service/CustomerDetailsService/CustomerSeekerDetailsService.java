@@ -1,4 +1,4 @@
-package com.example.careerhub.service;
+package com.example.careerhub.service.CustomerDetailsService;
 
 import com.example.careerhub.dto.SeekerRegistrationDTO;
 import com.example.careerhub.model.Role;
