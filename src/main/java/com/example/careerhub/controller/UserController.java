@@ -5,9 +5,15 @@ import com.example.careerhub.dto.*;
 import com.example.careerhub.model.Category;
 import com.example.careerhub.model.Job;
 import com.example.careerhub.repository.UserRepository;
+import com.example.careerhub.service.CustomerDetailsService.CustomUserDetails;
 import com.example.careerhub.service.JobService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +25,10 @@ import com.example.careerhub.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +38,7 @@ import java.util.stream.Collectors;
 
 
 @Controller
-public class UserRegistrationController {
+public class UserController {
     @Autowired
     private UserService userService;
 
@@ -38,10 +48,13 @@ public class UserRegistrationController {
     @Autowired
     UserRepository userRepository;
 
-    public UserRegistrationController(UserService userService) {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public UserController(UserService userService) {
         this.userService = userService;
     }
-
+    public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/images";
     @GetMapping(value = {"/", "/home"})
     public String home(Model model) {
         List<Job> jobs = jobService.getAllJobs();
@@ -101,6 +114,38 @@ public class UserRegistrationController {
         return "redirect:/register?success";
     }
 
+    @PostMapping("/employer/settings/update")
+    public String addRecipePost(@ModelAttribute("userData") UserRegistrationDTO userRegistrationDTO, @RequestParam("imageRec")MultipartFile file, @RequestParam("imgName") String imgName) throws IOException {
+        User existingUser = userRepository.findByEmail(userRegistrationDTO.getEmail());
+        existingUser.setFirstName(userRegistrationDTO.getFirstName());
+        existingUser.setLastName(userRegistrationDTO.getLastName());
+        existingUser.setEmail(userRegistrationDTO.getEmail());
+        existingUser.setLocation(userRegistrationDTO.getLocation());
+
+        if (userRegistrationDTO.getPassword() != null && !userRegistrationDTO.getPassword().isEmpty()) {
+            existingUser.setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
+        }
+
+
+        existingUser.setCompanyDescription(userRegistrationDTO.getCompanyDescription());
+        existingUser.setCompanyName(userRegistrationDTO.getCompanyName());
+        existingUser.setPhone(userRegistrationDTO.getPhone());
+        String imageUUID;
+
+        if(!file.isEmpty()){
+            imageUUID = file.getOriginalFilename();
+            Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
+            Files.write(fileNameAndPath, file.getBytes());
+        } else {
+            imageUUID = imgName;
+
+        }
+        existingUser.setImageName(imageUUID);
+        userService.updateUser(existingUser);
+        return "redirect:/employer/settings";
+    }
+
+
     @GetMapping("/employer-home")
     public String getEmployerHome(Model model) {
         List<Job> jobs = jobService.getAllJobsWithUsers();
@@ -116,16 +161,23 @@ public class UserRegistrationController {
         model.addAttribute("categoryIconPaths", categoryIconPaths);
         model.addAttribute("jobs", jobs);
 
+
         return "employer_home";
     }
 
 
 
     @GetMapping("/employer/settings")
-    public String usersSettings(Model model) {
-        model.addAttribute("user", new UserRegistrationDTO());
+    public String usersSettings(Model model, Principal principal) {
+        String username = principal.getName();
+        User userData = userService.findUserByEmail(username);
+        model.addAttribute("userData", userData);
         return "employer_settings";
     }
+
+
+
+
 
 
 

@@ -2,29 +2,23 @@ package com.example.careerhub.controller;
 
 
 import com.example.careerhub.dto.SeekerRegistrationDTO;
-import com.example.careerhub.dto.UserRegistrationDTO;
 import com.example.careerhub.model.Seeker;
-import com.example.careerhub.model.User;
 import com.example.careerhub.service.SeekerService;
-import com.example.careerhub.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
-
 
 @Controller
-public class SeekerRegistrationController {
+public class SeekerController {
 
 
     private SeekerService seekerService;
 
-    public SeekerRegistrationController(SeekerService seekerService) {
+    public SeekerController(SeekerService seekerService) {
         this.seekerService = seekerService;
     }
 

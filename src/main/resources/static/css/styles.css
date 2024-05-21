@@ -39,7 +39,7 @@ a {
 
 .search {
     background-color: var(--darkBlue);
-    height: 350px;
+    height: 450px;
     padding: 0px 150px;
     background-image: url("/images/background.jpg");
 }
@@ -399,7 +399,18 @@ a:hover {
     position: relative;
     display: block;
     margin: 0;
-    padding: 0
+    padding: 0;
+}
+
+.form-group-settings{
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 10px 0;
+}
+
+.form-group-settings input, .form-group-settings textarea {
+    border: 2px solid var(--darkBlue);
 }
 
 .form-style {

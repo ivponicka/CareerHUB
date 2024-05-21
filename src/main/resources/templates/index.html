@@ -112,7 +112,7 @@
                             <b><h2 class="card-header" th:text="${jobs[index].name}"></h2></b>
                             <div class="row">
                                 <div class="col-3" style="align-items:center">
-                                    <img th:src="@{'/images/' + ${jobs[index].user.imageName}}"
+                                    <img th:src="@{'./../images/' + ${jobs[index].user.imageName}}"
                                          alt="${jobs[index].user.imageName}" width="150px" height="100px" style="object-fit: cover">
                                 </div>
                                 <div class="col-6">

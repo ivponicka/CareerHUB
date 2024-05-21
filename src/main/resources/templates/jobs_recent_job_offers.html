@@ -29,12 +29,20 @@
                         <a class="nav-link active" aria-current="page" href="#" th:href="@{/home}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" th:href="@{/register}">Register</a>
+                        <a class="nav-link" href="#" sec:authorize="!isAuthenticated()"  th:href="@{/register}">Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" th:href="@{/login}">Login</a>
+                        <a class="nav-link" href="#" sec:authorize="!isAuthenticated()"  th:href="@{/login}">Login</a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/job-offers}">Job offers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/job-offers}">Applications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/employer/settings}">Settings</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:href="@{/about}">About us</a>
                     </li>
