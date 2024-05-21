@@ -28,10 +28,25 @@
                         <a class="nav-link active" aria-current="page" href="#" th:href="@{/home}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" th:href="@{/register}">Register</a>
+                        <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/job-offers}">Job offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" th:href="@{/login}">Login</a>
+                        <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/job-offers}">Applications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/employer/settings}">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" sec:authorize="hasAuthority('SEEKER')" th:href="@{/#}">My applications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" sec:authorize="hasAuthority('SEEKER')" th:href="@{/seeker/settings}">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" sec:authorize="!isAuthenticated()" href="#" th:href="@{/register}">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" sec:authorize="!isAuthenticated()"  href="#" th:href="@{/login}">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:href="@{/about}">About us</a>

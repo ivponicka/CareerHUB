@@ -39,6 +39,12 @@ public class SeekerServiceImp implements SeekerService {
         seeker.setRoles(Arrays.asList(role));
         seekerRepository.save(seeker);
     }
+
+    @Override
+    public void updateSeeker(Seeker seeker) {
+        seekerRepository.save(seeker);
+    }
+
     public Seeker findSeekerByEmail(String email) {
         return seekerRepository.findByEmail(email);
     }

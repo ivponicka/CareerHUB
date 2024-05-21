@@ -34,13 +34,19 @@
                         <a class="nav-link" href="#" sec:authorize="!isAuthenticated()"  th:href="@{/login}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/job-offers}">Job offers</a>
+                        <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/job-offers}">Job offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/job-offers}">Applications</a>
+                        <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/job-offers}">Applications</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/employer/settings}">Settings</a>
+                        <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/employer/settings}">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" sec:authorize="hasAuthority('SEEKER')" th:href="@{/#}">My applications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" sec:authorize="hasAuthority('SEEKER')" th:href="@{/seeker/settings}">Settings</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:href="@{/about}">About us</a>
@@ -90,7 +96,9 @@
                      style="display: flex; flex-direction: row; justify-content: space-between; padding-top: 50px; ">
                     <div>
                         <a type="button" th:href="@{/}" sec:authorize="!isAuthenticated()"  class="btn btn-outline-dark" style="width: 150px">Back</a>
-                        <a type="button" th:href="@{/employer-home}" sec:authorize="isAuthenticated()"  class="btn btn-outline-dark" style="width: 150px">Back</a>
+                        <a type="button" th:href="@{/employer-home}" sec:authorize="hasAuthority('EMPLOYER')"  class="btn btn-outline-dark" style="width: 150px">Back</a>
+                        <a type="button" th:href="@{/seeker-home}" sec:authorize="hasAuthority('SEEKER')"  class="btn btn-outline-dark" style="width: 150px">Back</a>
+                        <a type="button" th:href="@{/apply}" sec:authorize="hasAuthority('SEEKER')"  class="btn btn-warning" style="width: 150px">APPLY</a>
                     </div>
                 </div>
             </div>

@@ -61,8 +61,6 @@ public class UserController {
         Map<String, Long> jobsByCategory = jobs.stream()
                 .collect(Collectors.groupingBy(Job::getCategory, Collectors.counting()));
         model.addAttribute("jobsByCategory", jobsByCategory);
-
-        // Add category and icon path
         Map<String, String> categoryIconPaths = new HashMap<>();
         for (Category category : Category.values()) {
             categoryIconPaths.put(category.name(), category.getIconPath());
@@ -115,7 +113,7 @@ public class UserController {
     }
 
     @PostMapping("/employer/settings/update")
-    public String addRecipePost(@ModelAttribute("userData") UserRegistrationDTO userRegistrationDTO, @RequestParam("imageRec")MultipartFile file, @RequestParam("imgName") String imgName) throws IOException {
+    public String updateUser(@ModelAttribute("userData") UserRegistrationDTO userRegistrationDTO, @RequestParam("imageRec")MultipartFile file, @RequestParam("imgName") String imgName) throws IOException {
         User existingUser = userRepository.findByEmail(userRegistrationDTO.getEmail());
         existingUser.setFirstName(userRegistrationDTO.getFirstName());
         existingUser.setLastName(userRegistrationDTO.getLastName());

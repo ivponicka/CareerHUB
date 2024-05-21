@@ -30,6 +30,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             // Add more roles if needed
         }
         // Default redirection if no matching role is found
-        response.sendRedirect("/index");
+        response.sendRedirect("/");
     }
 }

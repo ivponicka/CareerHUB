@@ -45,7 +45,8 @@ public class SecurityConfiguration {
 
                                 .requestMatchers("/", "/index","login", "/js/**", "/register",  "register/**", "/static/**").permitAll()
                                 .requestMatchers("/admin_home", "/admin/**").hasAuthority("ADMIN")
-                                .requestMatchers("employer", "/employer/**").hasAuthority("USER")
+                                .requestMatchers("employer", "/employer/**", "employer-home").hasAuthority("USER")
+                                .requestMatchers("seeker", "/seeker/**").hasAuthority("SEEKER")
                                                                 .anyRequest().permitAll()
                 ).formLogin(
                         form -> form

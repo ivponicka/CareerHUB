@@ -28,13 +28,13 @@
                         <a class="nav-link active" aria-current="page" th:href="@{/employer-home}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/job-offers}">Job offers</a>
+                        <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/job-offers}">Job offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/job-offers}">Applications</a>
+                        <a class="nav-link" sec:authorize="hasAuthority('USER')"  th:href="@{/job-offers}">Applications</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/employer/settings}">Settings</a>
+                        <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/employer/settings}">Settings</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"  th:href="@{/about}">About us</a>
