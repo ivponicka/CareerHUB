@@ -28,7 +28,7 @@
                         <a class="nav-link active" aria-current="page" th:href="@{/seeker-home}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="hasAuthority('SEEKER')" th:href="@{/#}">My applications</a>
+                        <a class="nav-link" sec:authorize="hasAuthority('SEEKER')" th:href="@{/seeker/my-applications}">My applications</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" sec:authorize="hasAuthority('SEEKER')" th:href="@{/seeker/settings}">Settings</a>

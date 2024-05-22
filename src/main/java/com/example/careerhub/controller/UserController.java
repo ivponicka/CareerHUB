@@ -77,7 +77,6 @@ public class UserController {
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        // create model object to store form data
         UserRegistrationDTO user = new UserRegistrationDTO();
         SeekerRegistrationDTO seeker = new SeekerRegistrationDTO();
         model.addAttribute("seeker", seeker);

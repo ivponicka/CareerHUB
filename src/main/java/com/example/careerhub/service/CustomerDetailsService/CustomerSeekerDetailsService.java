@@ -30,18 +30,20 @@ public class CustomerSeekerDetailsService implements UserDetailsService{
         Seeker seeker = seekerRepository.findByEmail(email);
 
         if (seeker != null) {
-            return new org.springframework.security.core.userdetails.User(seeker.getEmail(),
+            return new CustomSeekerDetails(
+                    seeker.getId(),
+                    seeker.getEmail(),
                     seeker.getPassword(),
-                    mapRolesToAuthorities(seeker.getRoles()));
-        }else{
+                    mapRolesToAuthorities(seeker.getRoles())
+            );
+        } else {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
     }
 
-    private List < ? extends GrantedAuthority> mapRolesToAuthorities(List <Role> roles) {
-        List < ? extends GrantedAuthority> mapRoles = roles.stream()
+    private List<? extends GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
+        return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
-        return mapRoles;
     }
 }

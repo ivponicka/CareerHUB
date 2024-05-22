@@ -25,7 +25,10 @@
 
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" th:href="@{/employer-home}">Home</a>
+                        <a class="nav-link active" sec:authorize="hasAuthority('USER')" aria-current="page" th:href="@{/employer-home}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" sec:authorize="hasAuthority('SEEKER')" aria-current="page" th:href="@{/seeker-home}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" sec:authorize="!isAuthenticated()"  th:href="@{/register}">Register</a>
@@ -76,6 +79,7 @@
 
                 <h5><b>Category</b></h5>
                 <h4 th:text="${job.category}" class="job-offer-details"></h4>
+
                 <br>
                 <h5><b>Job type</b></h5>
                 <h4 th:text="${job.type}" class="job-offer-details"></h4>
@@ -98,7 +102,13 @@
                         <a type="button" th:href="@{/}" sec:authorize="!isAuthenticated()"  class="btn btn-outline-dark" style="width: 150px">Back</a>
                         <a type="button" th:href="@{/employer-home}" sec:authorize="hasAuthority('EMPLOYER')"  class="btn btn-outline-dark" style="width: 150px">Back</a>
                         <a type="button" th:href="@{/seeker-home}" sec:authorize="hasAuthority('SEEKER')"  class="btn btn-outline-dark" style="width: 150px">Back</a>
-                        <a type="button" th:href="@{/apply}" sec:authorize="hasAuthority('SEEKER')"  class="btn btn-warning" style="width: 150px">APPLY</a>
+
+                        <form th:action="@{/apply}" method="post">
+                            <input type="hidden" name="jobId" th:value="${job.id}"/>
+                            <input type="hidden" name="seekerId" th:value="${#authentication.principal.id}"/>
+                            <button type="submit" sec:authorize="hasAuthority('SEEKER')" class="btn btn-warning" style="width: 150px">Apply</button>
+                        </form>
+
                     </div>
                 </div>
             </div>

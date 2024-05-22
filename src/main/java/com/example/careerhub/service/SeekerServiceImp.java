@@ -1,9 +1,7 @@
 package com.example.careerhub.service;
 import com.example.careerhub.dto.SeekerRegistrationDTO;
-import com.example.careerhub.dto.UserRegistrationDTO;
 import com.example.careerhub.model.Role;
 import com.example.careerhub.model.Seeker;
-import com.example.careerhub.model.User;
 import com.example.careerhub.repository.RoleRepository;
 import com.example.careerhub.repository.SeekerRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
 public class SeekerServiceImp implements SeekerService {
@@ -48,6 +47,12 @@ public class SeekerServiceImp implements SeekerService {
     public Seeker findSeekerByEmail(String email) {
         return seekerRepository.findByEmail(email);
     }
+
+    @Override
+    public Optional<Seeker> findById(Long id) {
+        return seekerRepository.findById(id);
+    }
+
     @Override
     public List<SeekerRegistrationDTO> findAllSeekers() {
         List<Seeker> seekers = seekerRepository.findAll();

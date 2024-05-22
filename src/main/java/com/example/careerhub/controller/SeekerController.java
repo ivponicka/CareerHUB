@@ -8,10 +8,14 @@ import com.example.careerhub.model.Job;
 import com.example.careerhub.model.Seeker;
 import com.example.careerhub.model.User;
 import com.example.careerhub.repository.SeekerRepository;
+import com.example.careerhub.service.ApplicationService;
+import com.example.careerhub.service.CustomerDetailsService.CustomSeekerDetails;
 import com.example.careerhub.service.JobService;
 import com.example.careerhub.service.SeekerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +49,8 @@ public class SeekerController {
     @Autowired
     SeekerRepository seekerRepository;
 
+    @Autowired
+    ApplicationService applicationService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -114,4 +120,22 @@ public class SeekerController {
         seekerService.updateSeeker(existingSeeker);
         return "redirect:/seeker/settings";
     }
+
+    @PostMapping("/apply")
+    public String applyForJob(@RequestParam Long seekerId,
+                              @RequestParam Long jobId,
+                              Model model) {
+        applicationService.createApplication(seekerId, jobId);
+        model.addAttribute("successMessage", "You have successfully applied for the job.");
+        return "seeker_my_applications";
+    }
+
+    @GetMapping("/seeker/my-applications")
+    public String applications(@AuthenticationPrincipal CustomSeekerDetails customSeekerDetails, Model model){
+        Long seekerId = customSeekerDetails.getId();
+        model.addAttribute("jobApplications", applicationService.getApplicationsForSeeker(seekerId));
+        return "seeker_my_applications";
+    }
+
+
 }

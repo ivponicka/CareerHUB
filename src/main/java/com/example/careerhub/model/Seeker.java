@@ -36,5 +36,7 @@ public class Seeker
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "seeker")
+    private List<Application> applications;
 
 }
