@@ -3,10 +3,7 @@ package com.example.careerhub.controller;
 
 import com.example.careerhub.dto.SeekerRegistrationDTO;
 import com.example.careerhub.dto.UserRegistrationDTO;
-import com.example.careerhub.model.Category;
-import com.example.careerhub.model.Job;
-import com.example.careerhub.model.Seeker;
-import com.example.careerhub.model.User;
+import com.example.careerhub.model.*;
 import com.example.careerhub.repository.SeekerRepository;
 import com.example.careerhub.service.ApplicationService;
 import com.example.careerhub.service.CustomerDetailsService.CustomSeekerDetails;
@@ -20,10 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -136,6 +130,23 @@ public class SeekerController {
         model.addAttribute("jobApplications", applicationService.getApplicationsForSeeker(seekerId));
         return "seeker_my_applications";
     }
+
+    @GetMapping("/seeker/my-applications-details/{id}")
+    public String applicationsDetails(@AuthenticationPrincipal CustomSeekerDetails customSeekerDetails, Model model, @PathVariable long id){
+        Long seekerId = customSeekerDetails.getId();
+        model.addAttribute("job", jobService.getJobByID(id).get());
+        Job job = jobService.getJobByID(id).orElse(null);
+        if (job != null) {
+            List<Application> jobApplications = applicationService.getApplicationsForSeeker(seekerId)
+                    .stream()
+                    .filter(application -> application.getJob().getId().equals(id))
+                    .collect(Collectors.toList());
+            model.addAttribute("jobApplications", jobApplications);
+        }
+        return "seeker_my_applications_details";
+    }
+
+
 
 
 }

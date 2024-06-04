@@ -37,6 +37,12 @@
             <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/employer/settings}">Settings</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" sec:authorize="hasAuthority('SEEKER')" th:href="@{/seeker/my-applications}">My applications</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" sec:authorize="hasAuthority('SEEKER')" th:href="@{/seeker/settings}">Settings</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" th:href="@{/about}">About us</a>
           </li>
 
@@ -55,7 +61,7 @@
   </div>
   <div class="row job-offers-title">
     <br>
-    <h2>Job offers </h2>
+    <h2>My applications</h2>
   </div>
   <br>
   <div class="container mx-auto">
@@ -67,6 +73,7 @@
         <th scope="col">Company</th>
         <th scope="col">Date of application</th>
         <th scope="col">Status</th>
+        <th scope="col">Message</th>
       </tr>
       </thead>
       <tbody>
@@ -76,31 +83,19 @@
         <td th:text="${jobApplication.job.user.companyName}"></td>
         <td th:text="${jobApplication.dateOfApplication}"></td>
         <td th:text="${jobApplication.status}"></td>
+        <td th:text="${jobApplication.message == null || jobApplication.message.isEmpty() ? 'NONE' : (jobApplication.message.length() == 1 ? 1 : 'YES')}">
+        </td>
 
         <td style="text-align: center; width:200px; justify-content:center">
           <a type="submit" class="btn btn-blue"
-             style="font-size: 18px;">See details</a>
-
+             style="font-size: 18px;" th:href="@{/seeker/my-applications-details/{id} (id=${jobApplication.job.id})}">See details</a>
         </td>
       </tr>
       </tbody>
     </table>
-
-  </div>
-
-
-  <div class="container">
-
-    <div style="padding-top:10px; text-align: center; ">
-      <a type="submit" th:href="@{employer/add-job}" class="btn btn-blue"
-         style="font-size: 18px;width:300px; height:50px">Add new job
-        offer
-      </a>
-    </div>
   </div>
 
   <div class=" my-5">
-
     <footer
             class="text-center text-lg-start text-white"
             style="background-color: #45526e; width: 100%">

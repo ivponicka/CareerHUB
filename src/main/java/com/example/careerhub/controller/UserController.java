@@ -5,12 +5,15 @@ import com.example.careerhub.dto.*;
 import com.example.careerhub.model.Category;
 import com.example.careerhub.model.Job;
 import com.example.careerhub.repository.UserRepository;
+import com.example.careerhub.service.ApplicationService;
+import com.example.careerhub.service.CustomerDetailsService.CustomSeekerDetails;
 import com.example.careerhub.service.CustomerDetailsService.CustomUserDetails;
 import com.example.careerhub.service.JobService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,6 +44,9 @@ import java.util.stream.Collectors;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    ApplicationService applicationService;
 
     @Autowired
     JobService jobService;
@@ -225,4 +231,10 @@ public class UserController {
     }
 
 
+    @GetMapping("/employer/applications")
+    public String employerApplications(@AuthenticationPrincipal CustomSeekerDetails customSeekerDetails, Model model){
+        Long seekerId = customSeekerDetails.getId();
+        model.addAttribute("jobApplications", applicationService.getApplicationsForSeeker(seekerId));
+        return "employer_job_offer_applications";
+    }
 }

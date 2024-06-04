@@ -43,7 +43,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((authorize) ->
                         authorize
 
-                                .requestMatchers("/", "/index","login", "/js/**", "/register",  "register/**", "/static/**").permitAll()
+                                .requestMatchers("/", "/index","login", "/view-job/**", "/job_offer_details","/js/**", "/register",  "register/**", "/static/**").permitAll()
                                 .requestMatchers("/admin_home", "/admin/**").hasAuthority("ADMIN")
                                 .requestMatchers("employer", "/employer/**", "employer-home").hasAuthority("USER")
                                 .requestMatchers("seeker", "/seeker/**").hasAuthority("SEEKER")

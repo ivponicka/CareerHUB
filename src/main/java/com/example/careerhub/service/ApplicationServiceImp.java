@@ -39,4 +39,9 @@ public class ApplicationServiceImp implements ApplicationService{
     public List<Application> getApplicationsForSeeker(Long seekerId) {
         return applicationRepository.findBySeekerId(seekerId);
     }
+
+    @Override
+    public Application getApplicationById(long id) {
+        return applicationRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid application ID: " + id));
+    }
 }

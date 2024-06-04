@@ -24,6 +24,9 @@ public class Application {
     @Column(name = "response_date")
     private Date responseDate;
 
+    @Column(name = "message", length = 1000)
+    private String message;
+
     @ManyToOne
     @JoinColumn(name = "seeker_id", nullable = false)
     private Seeker seeker;

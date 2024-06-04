@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface ApplicationService {
     public void createApplication(Long seekerId, Long jobId);
     public List<Application> getApplicationsForSeeker(Long seekerId);
+    Application getApplicationById(long id);
+
 }

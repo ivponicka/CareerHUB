@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
-    <link href='./../css/styles.css' rel="stylesheet" type="text/css">
+    <link href='./../../css/styles.css' rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="container-fluid">
@@ -31,7 +31,7 @@
                         <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/job-offers}">Job offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/employer/applications}">Applications</a>
+                        <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/job-offers}">Applications</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/employer/settings}">Settings</a>
@@ -53,52 +53,38 @@
             </div>
         </nav>
     </div>
-    <div class="row job-offers-title">
-        <br>
-        <h2>Job offers </h2>
-    </div>
-    <br>
     <div class="container mx-auto">
         <table class="table">
             <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
-                <th scope="col">Category</th>
-                <th scope="col">Type</th>
-                <th scope="col">Location</th>
-                <th scope="col">Salary</th>
-                <th scope="col" style="text-align: center">ACTION</th>
+                <th scope="col">Company</th>
+                <th scope="col">Date of application</th>
+                <th scope="col">Status</th>
+                <th scope="col">Message</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="job, i:${jobs}">
+            <tr th:each="jobApplication, i:${jobApplications}">
                 <th scope="row" th:text="${i.index+1}">1</th>
-                <td th:text="${job.name}"></td>
-                <td th:text="${job.category}"></td>
-                <td th:text="${job.type}"></td>
-                <td th:text="${job.location}"></td>
-                <td th:text="${job.salary} + ' €'"></td>
+                <td th:text="${jobApplication.job.name}"></td>
+                <td th:text="${jobApplication.job.user.companyName}"></td>
+                <td th:text="${jobApplication.dateOfApplication}"></td>
+                <td th:text="${jobApplication.status}"></td>
+                <td th:text="${jobApplication.message == null || jobApplication.message.isEmpty() ? 'NONE' : (jobApplication.message.length() == 1 ? 1 : 'more than 1')}"></td>
                 <td style="text-align: center; width:200px; justify-content:center">
-                    <a type="submit" th:href="@{/employer/view-job/{id} (id=${job.id})}" class="btn btn-blue"
-                       style="font-size: 18px;">See details</a>
-
+                    <a type="submit" class="btn btn-blue"
+                       style="font-size: 18px;" th:href="@{/seeker/my-applications-details/{id} (id=${jobApplication.job.id})}">See details</a>
                 </td>
             </tr>
             </tbody>
         </table>
-
-    </div>
+    </div>s
 
 
     <div class="container">
 
-        <div style="padding-top:10px; text-align: center; ">
-            <a type="submit" th:href="@{employer/add-job}" class="btn btn-blue"
-               style="font-size: 18px;width:300px; height:50px">Add new job
-                offer
-            </a>
-        </div>
     </div>
 
     <div class=" my-5">
@@ -148,9 +134,12 @@
                                 >
                             </div>
                         </div>
+
                         <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
-                            <a class="btn btn-outline-light btn-floating m-1 text-white"
-                               role="button"
+                            <a
+                                    class="btn btn-outline-light btn-floating m-1 text-white"
+
+                                    role="button"
                             ><i class="fab fa-facebook-f"></i
                             ></a>
                             <a
@@ -179,4 +168,5 @@
     </div>
 </div>
 </body>
+
 </html>

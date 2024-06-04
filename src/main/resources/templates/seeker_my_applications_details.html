@@ -21,32 +21,37 @@
     <div class="row">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
-                <a class="navbar-brand" href="#" th:href="@{/home}"><img th:src="@{${'/images/logo.png'}}" class="logo"/></a>
+                <a class="navbar-brand" href="#" th:href="@{/home}"><img th:src="@{${'/images/logo.png'}}"
+                                                                         class="logo"/></a>
 
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link active" sec:authorize="hasAuthority('USER')" aria-current="page" th:href="@{/employer-home}">Home</a>
+                        <a class="nav-link active" sec:authorize="hasAuthority('USER')" aria-current="page"
+                           th:href="@{/employer-home}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" sec:authorize="hasAuthority('SEEKER')" aria-current="page" th:href="@{/seeker-home}">Home</a>
+                        <a class="nav-link active" sec:authorize="hasAuthority('SEEKER')" aria-current="page"
+                           th:href="@{/seeker-home}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" sec:authorize="!isAuthenticated()"  th:href="@{/register}">Register</a>
+                        <a class="nav-link" href="#" sec:authorize="!isAuthenticated()"
+                           th:href="@{/register}">Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" sec:authorize="!isAuthenticated()"  th:href="@{/login}">Login</a>
+                        <a class="nav-link" href="#" sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/job-offers}">Job offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/job-offers}">Applications</a>
+                        <a class="nav-link" sec:authorize="hasAuthority('USER')"
+                           th:href="@{/job-offers}">Applications</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/employer/settings}">Settings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="hasAuthority('SEEKER')" th:href="@{/#}">My applications</a>
+                        <a class="nav-link" sec:authorize="hasAuthority('SEEKER')" th:href="@{/seeker/my-applications}">My applications</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" sec:authorize="hasAuthority('SEEKER')" th:href="@{/seeker/settings}">Settings</a>
@@ -96,18 +101,41 @@
                 <h5><b>Description</b></h5>
                 <h6 th:text="${job.description}" class="job-offer-details"></h6>
                 <br>
+                <h5><b>Messages</b></h5>
+
+
+
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Message</th>
+                        <th scope="col">From</th>
+                        <th scope="col">Date of response</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="jobApplication, i:${jobApplications}">
+                        <th scope="row" th:text="${i.index+1}">1</th>
+                        <td th:text="${jobApplication.message}"></td>
+                        <td th:text="${jobApplication.job.user.companyName}"></td>
+                        <td th:text="${#dates.format(jobApplication.dateOfApplication, 'yyyy-MM-dd - HH:mm')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+                <br>
                 <div class="col-12"
                      style="display: flex; flex-direction: row; justify-content: space-between; padding-top: 50px; ">
                     <div>
-                        <a type="button" th:href="@{/}" sec:authorize="!isAuthenticated()"  class="btn btn-outline-dark" style="width: 150px">Back</a>
-                        <a type="button" th:href="@{/employer-home}" sec:authorize="hasAuthority('EMPLOYER')"  class="btn btn-outline-dark" style="width: 150px">Back</a>
-                        <a type="button" th:href="@{/seeker-home}" sec:authorize="hasAuthority('SEEKER')"  class="btn btn-outline-dark" style="width: 150px">Back</a>
+                        <a type="button" th:href="@{/}" sec:authorize="!isAuthenticated()" class="btn btn-outline-dark"
+                           style="width: 150px">Back</a>
+                        <a type="button" th:href="@{/employer-home}" sec:authorize="hasAuthority('EMPLOYER')"
+                           class="btn btn-outline-dark" style="width: 150px">Back</a>
+                        <a type="button" th:href="@{/seeker/my-applications}" sec:authorize="hasAuthority('SEEKER')"
+                           class="btn btn-outline-dark" style="width: 150px">Back</a>
 
-                        <form  sec:authorize="hasAuthority('SEEKER')" th:action="@{/apply}" method="post">
-                            <input type="hidden" name="jobId" th:value="${job.id}"/>
-                            <input type="hidden" name="seekerId" th:value="${#authentication.principal.id}"/>
-                            <button type="submit" sec:authorize="hasAuthority('SEEKER')" class="btn btn-warning" style="width: 150px">Apply</button>
-                        </form>
 
                     </div>
                 </div>
@@ -120,9 +148,15 @@
                 <h5 th:text="${job.user.location}"></h5>
             </div>
         </div>
+
     </div>
 </div>
 <br>
+
+
+
+<br>
+
 <footer
         class="text-center text-lg-start text-white"
         style="background-color: #45526e; width: 100%">
@@ -130,7 +164,7 @@
         <section class="">
             <div class="row">
                 <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-                    <a th:href="@{/home}"><img th:src="@{${'./../images/logotransparent.png'}}"
+                    <a th:href="@{/home}"><img th:src="@{${'./../../images/logotransparent.png'}}"
                                                style="width: 200px; border: 1px solid #45526e">
                     </a>
                 </div>
