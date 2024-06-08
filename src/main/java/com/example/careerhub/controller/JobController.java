@@ -1,7 +1,10 @@
 package com.example.careerhub.controller;
 
+import com.example.careerhub.model.Application;
 import com.example.careerhub.model.Job;
+import com.example.careerhub.model.Seeker;
 import com.example.careerhub.model.User;
+import com.example.careerhub.repository.ApplicationRepository;
 import com.example.careerhub.service.JobService;
 import com.example.careerhub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -23,7 +27,8 @@ public class JobController {
 
     @Autowired
     UserService userService;
-
+    @Autowired
+    private ApplicationRepository applicationRepository;
     @GetMapping("/recent-job-offers")
     public String  recentJobOffers(Model model, @RequestParam(defaultValue = "0") int page,
     @RequestParam(defaultValue = "10") int size) {
@@ -72,5 +77,27 @@ public class JobController {
         return "jobs_search_job_offers";
     }
 
+    @GetMapping("/employer/application-details/{id}")
+    public String applicationDetails(@PathVariable long id, Model model){
+        Application applications = applicationRepository.findById(id).get();
+        Job job = applications.getJob();
+        Seeker seeker = applications.getSeeker();
 
+
+        model.addAttribute("job", jobService.getJobByID(id).get());
+        model.addAttribute("seeker", seeker);
+        model.addAttribute("applications", applications);
+        return "employer_application_details";
+    }
+
+    @PostMapping("/employer/send-message")
+    public String sendMessage(@RequestParam Long applicationId, @RequestParam String message, @RequestParam String status) {
+        Application application = applicationRepository.findById(applicationId)
+                .orElseThrow(() -> new RuntimeException("Application not found"));
+        application.setMessage(message);
+        application.setStatus(status);
+        applicationRepository.save(application);
+
+        return "redirect:/employer/applications";
+    }
 }

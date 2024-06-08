@@ -190,12 +190,10 @@ public class UserController {
 
 
 
-
-
     @GetMapping("/employer/add-job")
     public String addJob(Model model) {
         model.addAttribute("jobDTO", new JobDTO());
-        return "employer_job_offer_add";
+        return "employer_job_add";
     }
 
 
@@ -224,7 +222,7 @@ public class UserController {
     @GetMapping("employer/view-job/{id}")
     public String viewJob(@PathVariable long id, Model model){
         model.addAttribute("job", jobService.getJobByID(id).get());
-        return "employer_job_offer_details";
+        return "employer_job_details";
     }
 
     @GetMapping("employer/delete/{id}")
@@ -235,7 +233,7 @@ public class UserController {
     @GetMapping("employer/edit/{id}")
     public String editob(@PathVariable long id, Model model){
         model.addAttribute("job", jobService.getJobByID(id).get());
-        return "employer_job_offer_edit";
+        return "employer_job_edit";
     }
 
 
@@ -258,6 +256,8 @@ public class UserController {
         model.addAttribute("jobs", jobsWithApplications);
         model.addAttribute("applications", applications);
 
-        return "employer_job_offer_applications";
+        return "employer_applications";
     }
+
+
 }

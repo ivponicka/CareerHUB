@@ -115,10 +115,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="jobApplication, i:${jobApplications}">
+                    <tr th:each="jobApplication, i:${jobApplications}" th:if="${jobApplication.message != null and !jobApplication.message.isEmpty()}">
                         <th scope="row" th:text="${i.index+1}">1</th>
-                        <td th:text="${jobApplication.message}"></td>
-                        <td th:text="${jobApplication.job.user.companyName}"></td>
+                        <td th:text="${jobApplication.message}">-</td>
+                        <td th:text="${jobApplication.job.user.companyName}">-</td>
                         <td th:text="${#dates.format(jobApplication.dateOfApplication, 'yyyy-MM-dd - HH:mm')}"></td>
                     </tr>
                     </tbody>

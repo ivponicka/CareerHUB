@@ -10,6 +10,9 @@
           type="text/css"/>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,500,700,900' rel='stylesheet'
           type='text/css'>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -55,40 +58,78 @@
     </div>
     <div class="row job-offers-title">
         <br>
-        <h2>Applications</h2>
+        <h2>Application Details</h2>
     </div>
     <div class="container mx-auto">
             <div class="col-12">
-                <div th:each="job : ${jobs}">
-                    <h2 th:text="${job.name}"></h2>
-                    <table class="table">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th>#</th>
-                            <th>Application ID</th>
-                            <th>Seeker Name</th>
-                            <th>Application Date</th>
-                            <th>Status</th>
-                            <th scope="col" style="text-align: center">ACTION</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="appli, i: ${applications}" th:if="${appli.job.id} == ${job.id}">
-                            <th scope="row" th:text="${i.index+1}">1</th>
-                            <td th:text="${appli.id}"></td>
-                            <td th:text="${appli.seeker.firstName + ' ' + appli.seeker.lastName}"></td>
-                            <td th:text="${appli.dateOfApplication}"></td>
-                            <td th:text="${appli.status}"></td>
-                            <td style="text-align: center; width:200px; justify-content:center">
-                                <a type="submit" th:href="@{/employer/view-job/{id} (id=${job.id})}" class="btn btn-blue"
-                                   style="font-size: 18px;">See details</a>
+                <br>
+                <div class="container">
 
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <div>
+                        <h2>Job Details</h2>
+                        <p><strong>Job Name:</strong> <span th:text="${job.name}"></span></p>
+                        <p><strong>Category:</strong> <span th:text="${job.category}"></span></p>
+                        <p><strong>Type:</strong> <span th:text="${job.type}"></span></p>
+                        <p><strong>Salary:</strong> <span th:text="${job.salary}"></span> €</p>
+                        <p><strong>Location:</strong> <span th:text="${job.location}"></span></p>
+                        <p><strong>Description:</strong> <span th:text="${job.description}"></span></p>
+                    </div>
+                    <br>
+                    <div>
+                        <h2>Seeker Details</h2>
+                        <p><strong>First Name:</strong> <span th:text="${seeker.firstName}"></span></p>
+                        <p><strong>Last Name:</strong> <span th:text="${seeker.lastName}"></span></p>
+                        <p><strong>Email:</strong> <span th:text="${seeker.email}"></span></p>
+                        <p><strong>Email:</strong> <span th:text="${seeker.phone}"></span></p>
+                        <!-- Add more seeker details as needed -->
+                    </div>
+                    <br>
+                    <div>
+                        <h2>Application Details</h2>
+                        <p><strong>Application ID:</strong> <span th:text="${applications.id}"></span></p>
+                        <p><strong>Date of Application:</strong> <span th:text="${#dates.format(applications.dateOfApplication, 'yyyy-MM-dd - HH:mm')}"></span></p>
+                        <p><strong>Status:</strong> <span th:text="${applications.status}"></span></p>
+                        <p><strong>Message:</strong> <span th:text="${applications.message}"></span></p>
+                    </div>
+
+                </div>
+                <td style="text-align: center; width:200px; justify-content:center">
+                    <a type="button" class="btn btn-blue" style="font-size: 18px; text-align: center" data-toggle="modal" data-target="#sendMessageModal" th:data-id="${applications.id}">Send message</a>
+                </td>
+
+                <div class="modal fade" id="sendMessageModal" tabindex="-1" role="dialog" aria-labelledby="sendMessageModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="sendMessageModalLabel">Send Message to Seeker</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="sendMessageForm" th:action="@{/employer/send-message}" method="post">
+                                    <input type="hidden" name="applicationId" id="applicationId">
+                                    <div class="form-group">
+                                        <label for="message">Message</label>
+                                        <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+                                    </div>
+
+                                    <label for="status">Status:</label>
+
+                                    <select name="status" id="status">
+                                        <option value="Pending" name="status">Pending</option>
+                                        <option value="Accepted" name="status">Accepted</option>
+                                        <option value="Rejected" name="status">Rejected</option>
+                                    </select>
+
+                                    <button type="submit" class="btn btn-primary">Send</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
         </div>
+
 </div>
 
 
@@ -105,7 +146,7 @@
                 <section class="">
                     <div class="row">
                         <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-                            <a th:href="@{/employer-home}"><img th:src="@{${'./../images/logotransparent.png'}}"
+                            <a th:href="@{/employer-home}"><img th:src="@{${'./../../images/logotransparent.png'}}"
                                                                 style="width: 200px; border: 1px solid #45526e">
                             </a>
                         </div>
@@ -176,6 +217,17 @@
         </footer>
     </div>
 </div>
+
+
+
+<script>
+    $('#sendMessageModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var applicationId = button.data('id'); // Extract info from data-* attributes
+        var modal = $(this);
+        modal.find('#applicationId').val(applicationId);
+    });
+</script>
 </body>
 
 </html>
