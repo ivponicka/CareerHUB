@@ -1,5 +1,7 @@
 package com.example.careerhub.service;
 import com.example.careerhub.repository.JobRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -88,6 +90,9 @@ public class UserServiceImp implements UserService {
     public Optional<User> findUserByID(Long id) {
        return userRepository.findById(id);
     }
+
+
+
     private UserRegistrationDTO mapToUserDto(User user){
         UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO();
         userRegistrationDTO.getFirstName();
@@ -100,4 +105,15 @@ public class UserServiceImp implements UserService {
         role.setName("USER");
         return roleRepository.save(role);
     }
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String email = authentication.getName();
+            return userRepository.findByEmail(email);
+        } else {
+            // Handle the case when no user is authenticated
+            return null;
+        }
+    }
+
 }

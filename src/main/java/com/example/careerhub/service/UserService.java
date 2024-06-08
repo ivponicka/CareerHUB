@@ -12,4 +12,5 @@ public interface UserService  {
     List<UserRegistrationDTO> findAllUsers();
     public List<User> getAllUsers();
     Optional<User> findUserByID(Long id);
+     User getCurrentUser();
 }

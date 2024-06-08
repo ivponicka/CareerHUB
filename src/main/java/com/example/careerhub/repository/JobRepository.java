@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,4 +23,9 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     List<Job> findByNameContainingAndLocationContaining(String title, String location);
     List<Job> findByNameContaining(String title);
     List<Job> findByLocationContaining(String location);
+
+    @Query("SELECT j FROM Job j JOIN j.user u WHERE u.companyName = :companyName")
+    List<Job> findByCompanyName(@Param("companyName") String companyName);
+    List<Job> findByUserId(Long userId);
+
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ApplicationServiceImp implements ApplicationService{
@@ -19,9 +20,11 @@ public class ApplicationServiceImp implements ApplicationService{
     ApplicationRepository applicationRepository;
 
     @Autowired
-    SeekerRepository seekerRepository;
-    @Autowired
     JobRepository jobRepository;
+
+    @Autowired
+    SeekerRepository seekerRepository;
+
     @Override
     public void createApplication(Long seekerId, Long jobId) {
         Seeker seeker = seekerRepository.findById(seekerId).orElseThrow(()-> new RuntimeException("Invalid seeker ID: " + seekerId));
@@ -43,5 +46,10 @@ public class ApplicationServiceImp implements ApplicationService{
     @Override
     public Application getApplicationById(long id) {
         return applicationRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid application ID: " + id));
+    }
+
+
+    public List<Application> findByJobIds(List<Long> jobIds) {
+        return applicationRepository.findByJobIdIn(jobIds);
     }
 }

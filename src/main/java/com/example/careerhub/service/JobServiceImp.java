@@ -1,7 +1,9 @@
 package com.example.careerhub.service;
+import com.example.careerhub.model.Application;
 import com.example.careerhub.model.Category;
 import com.example.careerhub.model.Job;
 import com.example.careerhub.model.User;
+import com.example.careerhub.repository.ApplicationRepository;
 import com.example.careerhub.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +16,10 @@ import java.util.Optional;
 public class JobServiceImp implements JobService {
     @Autowired
     JobRepository jobRepository;
+
+    @Autowired
+    ApplicationRepository applicationRepository;
+
     @Override
     public void addJob(Job job) {
         jobRepository.save(job);
@@ -62,4 +68,13 @@ public class JobServiceImp implements JobService {
             return jobRepository.findAll();
         }
     }
+
+    public List<Job> findByUserId(Long userId) {
+        return jobRepository.findByUserId(userId);
+    }
+
+    public boolean jobHasApplications(Long jobId) {
+        return !applicationRepository.findByJobId(jobId).isEmpty();
+    }
+
 }

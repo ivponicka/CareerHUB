@@ -2,8 +2,11 @@ package com.example.careerhub.controller;
 
 
 import com.example.careerhub.dto.*;
+import com.example.careerhub.model.Application;
 import com.example.careerhub.model.Category;
 import com.example.careerhub.model.Job;
+import com.example.careerhub.repository.ApplicationRepository;
+import com.example.careerhub.repository.JobRepository;
 import com.example.careerhub.repository.UserRepository;
 import com.example.careerhub.service.ApplicationService;
 import com.example.careerhub.service.CustomerDetailsService.CustomSeekerDetails;
@@ -54,6 +57,11 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    JobRepository jobRepository;
+
+    @Autowired
+    ApplicationRepository applicationRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -232,9 +240,24 @@ public class UserController {
 
 
     @GetMapping("/employer/applications")
-    public String employerApplications(@AuthenticationPrincipal CustomSeekerDetails customSeekerDetails, Model model){
-        Long seekerId = customSeekerDetails.getId();
-        model.addAttribute("jobApplications", applicationService.getApplicationsForSeeker(seekerId));
+    public String employerApplications(Model model){
+        User currentUser = userService.getCurrentUser();
+
+        // Fetch job offers posted by the current user
+        // Find all jobs for the current user
+        List<Job> allJobs = jobRepository.findByUserId(currentUser.getId());
+
+        // Filter jobs to include only those with applications
+        List<Job> jobsWithApplications = allJobs.stream()
+                .filter(job -> jobService.jobHasApplications(job.getId()))
+                .collect(Collectors.toList());
+
+        // Find all applications for the current user's jobs
+        List<Application> applications = applicationRepository.findAllByJobUserId(currentUser.getId());
+
+        model.addAttribute("jobs", jobsWithApplications);
+        model.addAttribute("applications", applications);
+
         return "employer_job_offer_applications";
     }
 }

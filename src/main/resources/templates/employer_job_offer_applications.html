@@ -53,34 +53,43 @@
             </div>
         </nav>
     </div>
+    <div class="row job-offers-title">
+        <br>
+        <h2>Applications</h2>
+    </div>
     <div class="container mx-auto">
-        <table class="table">
-            <thead class="thead-dark">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Company</th>
-                <th scope="col">Date of application</th>
-                <th scope="col">Status</th>
-                <th scope="col">Message</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="jobApplication, i:${jobApplications}">
-                <th scope="row" th:text="${i.index+1}">1</th>
-                <td th:text="${jobApplication.job.name}"></td>
-                <td th:text="${jobApplication.job.user.companyName}"></td>
-                <td th:text="${jobApplication.dateOfApplication}"></td>
-                <td th:text="${jobApplication.status}"></td>
-                <td th:text="${jobApplication.message == null || jobApplication.message.isEmpty() ? 'NONE' : (jobApplication.message.length() == 1 ? 1 : 'more than 1')}"></td>
-                <td style="text-align: center; width:200px; justify-content:center">
-                    <a type="submit" class="btn btn-blue"
-                       style="font-size: 18px;" th:href="@{/seeker/my-applications-details/{id} (id=${jobApplication.job.id})}">See details</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>s
+            <div class="col-12">
+                <div th:each="job : ${jobs}">
+                    <h2 th:text="${job.name}"></h2>
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Application ID</th>
+                            <th>Seeker Name</th>
+                            <th>Application Date</th>
+                            <th>Status</th>
+                            <th scope="col" style="text-align: center">ACTION</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="appli, i: ${applications}" th:if="${appli.job.id} == ${job.id}">
+                            <th scope="row" th:text="${i.index+1}">1</th>
+                            <td th:text="${appli.id}"></td>
+                            <td th:text="${appli.seeker.firstName + ' ' + appli.seeker.lastName}"></td>
+                            <td th:text="${appli.dateOfApplication}"></td>
+                            <td th:text="${appli.status}"></td>
+                            <td style="text-align: center; width:200px; justify-content:center">
+                                <a type="submit" th:href="@{/employer/view-job/{id} (id=${job.id})}" class="btn btn-blue"
+                                   style="font-size: 18px;">See details</a>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+</div>
 
 
     <div class="container">
