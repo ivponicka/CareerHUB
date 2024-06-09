@@ -1,5 +1,4 @@
 package com.example.careerhub.controller;
-
 import com.example.careerhub.model.Application;
 import com.example.careerhub.model.Job;
 import com.example.careerhub.model.Seeker;
@@ -17,14 +16,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.List;
-
 @Controller
 public class JobController {
     @Autowired
     JobService jobService;
-
     @Autowired
     UserService userService;
     @Autowired
@@ -37,23 +33,16 @@ public class JobController {
         return "jobs_recent_job_offers";
     }
 
-
-
     @GetMapping("/job-offers")
     public String jobOffers(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
-
-        // Find the user by email
         User currentUser = userService.findUserByEmail(currentUserName);
-
-        // Fetch jobs associated with the current user
         List<Job> jobs = jobService.getJobsByUser(currentUser);
-
-        // Add jobs to the model
         model.addAttribute("jobs", jobs);
         return "employer_job_offers";
     }
+
     @GetMapping("/view-job/{id}")
     public String viewJob(@PathVariable long id, Model model){
         model.addAttribute("job", jobService.getJobByID(id).get());
@@ -67,7 +56,7 @@ public class JobController {
         Page<Job> jobPage = jobService.getPaginatedJobsByCategory(category, page, size);
         model.addAttribute("jobPage", jobPage);
         model.addAttribute("category", category);
-        return "jobs_category_job_offers"; // Ensure this is the correct template name
+        return "jobs_category_job_offers";
     }
 
     @GetMapping("/search-jobs")
@@ -82,8 +71,6 @@ public class JobController {
         Application applications = applicationRepository.findById(id).get();
         Job job = applications.getJob();
         Seeker seeker = applications.getSeeker();
-
-
         model.addAttribute("job", jobService.getJobByID(id).get());
         model.addAttribute("seeker", seeker);
         model.addAttribute("applications", applications);
@@ -97,7 +84,6 @@ public class JobController {
         application.setMessage(message);
         application.setStatus(status);
         applicationRepository.save(application);
-
         return "redirect:/employer/applications";
     }
 }

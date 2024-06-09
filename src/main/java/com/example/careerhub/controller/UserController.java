@@ -1,6 +1,4 @@
 package com.example.careerhub.controller;
-
-
 import com.example.careerhub.dto.*;
 import com.example.careerhub.model.Application;
 import com.example.careerhub.model.Category;
@@ -41,30 +39,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-
 @Controller
 public class UserController {
     @Autowired
     private UserService userService;
-
     @Autowired
     ApplicationService applicationService;
-
     @Autowired
     JobService jobService;
-
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     JobRepository jobRepository;
-
     @Autowired
     ApplicationRepository applicationRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -103,7 +93,6 @@ public class UserController {
         return "about";
     }
 
-    @SuppressWarnings("null")
     @PostMapping("/registerUser/save")
     public String registration(@Valid @ModelAttribute("employer") UserRegistrationDTO userRegistrationDTO,
                                BindingResult result,
@@ -115,12 +104,10 @@ public class UserController {
             result.rejectValue("email", null,
                     "There is already an account registered with the same email");
         }
-
         if (result.hasErrors()) {
             model.addAttribute("user", userRegistrationDTO);
             return "/register";
         }
-
         userService.saveUser(userRegistrationDTO, file, imgName);
         return "redirect:/register?success";
     }
@@ -132,30 +119,24 @@ public class UserController {
         existingUser.setLastName(userRegistrationDTO.getLastName());
         existingUser.setEmail(userRegistrationDTO.getEmail());
         existingUser.setLocation(userRegistrationDTO.getLocation());
-
         if (userRegistrationDTO.getPassword() != null && !userRegistrationDTO.getPassword().isEmpty()) {
             existingUser.setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
         }
-
-
         existingUser.setCompanyDescription(userRegistrationDTO.getCompanyDescription());
         existingUser.setCompanyName(userRegistrationDTO.getCompanyName());
         existingUser.setPhone(userRegistrationDTO.getPhone());
         String imageUUID;
-
         if(!file.isEmpty()){
             imageUUID = file.getOriginalFilename();
             Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
             Files.write(fileNameAndPath, file.getBytes());
         } else {
             imageUUID = imgName;
-
         }
         existingUser.setImageName(imageUUID);
         userService.updateUser(existingUser);
         return "redirect:/employer/settings";
     }
-
 
     @GetMapping("/employer-home")
     public String getEmployerHome(Model model) {
@@ -163,20 +144,14 @@ public class UserController {
         Map<String, Long> jobsByCategory = jobs.stream()
                 .collect(Collectors.groupingBy(Job::getCategory, Collectors.counting()));
         model.addAttribute("jobsByCategory", jobsByCategory);
-
-        // Add category and icon path
         Map<String, String> categoryIconPaths = new HashMap<>();
         for (Category category : Category.values()) {
             categoryIconPaths.put(category.name(), category.getIconPath());
         }
         model.addAttribute("categoryIconPaths", categoryIconPaths);
         model.addAttribute("jobs", jobs);
-
-
         return "employer_home";
     }
-
-
 
     @GetMapping("/employer/settings")
     public String usersSettings(Model model, Principal principal) {
@@ -186,23 +161,17 @@ public class UserController {
         return "employer_settings";
     }
 
-
-
-
-
     @GetMapping("/employer/add-job")
     public String addJob(Model model) {
         model.addAttribute("jobDTO", new JobDTO());
         return "employer_job_add";
     }
 
-
     @PostMapping("/employer/add-job")
     public String addJobPost(@ModelAttribute("jobDTO") JobDTO jobDTO, Principal principal) {
         String username = principal.getName();
         Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmail(username));
         User user = optionalUser.orElseThrow(() -> new EntityNotFoundException("User not found"));
-
         Job job = new Job();
         job.setId(jobDTO.getId());
         job.setName(jobDTO.getName());
@@ -214,7 +183,6 @@ public class UserController {
         job.setLocation(jobDTO.getLocation());
         job.setDescription(jobDTO.getDescription());
         job.setUser(user);
-
         jobService.addJob(job);
         return "redirect:/job-offers";
     }
@@ -231,33 +199,21 @@ public class UserController {
         return "redirect:/job-offers";
     }
     @GetMapping("employer/edit/{id}")
-    public String editob(@PathVariable long id, Model model){
+    public String editJob(@PathVariable long id, Model model){
         model.addAttribute("job", jobService.getJobByID(id).get());
         return "employer_job_edit";
     }
 
-
     @GetMapping("/employer/applications")
     public String employerApplications(Model model){
         User currentUser = userService.getCurrentUser();
-
-        // Fetch job offers posted by the current user
-        // Find all jobs for the current user
         List<Job> allJobs = jobRepository.findByUserId(currentUser.getId());
-
-        // Filter jobs to include only those with applications
         List<Job> jobsWithApplications = allJobs.stream()
                 .filter(job -> jobService.jobHasApplications(job.getId()))
                 .collect(Collectors.toList());
-
-        // Find all applications for the current user's jobs
         List<Application> applications = applicationRepository.findAllByJobUserId(currentUser.getId());
-
         model.addAttribute("jobs", jobsWithApplications);
         model.addAttribute("applications", applications);
-
         return "employer_applications";
     }
-
-
 }

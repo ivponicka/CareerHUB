@@ -1,6 +1,4 @@
 package com.example.careerhub.controller;
-
-
 import com.example.careerhub.dto.SeekerRegistrationDTO;
 import com.example.careerhub.dto.UserRegistrationDTO;
 import com.example.careerhub.model.*;
@@ -30,53 +28,40 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
 @Controller
 public class SeekerController {
-
-
     private SeekerService seekerService;
-
     @Autowired
     JobService jobService;
-
     @Autowired
     SeekerRepository seekerRepository;
-
     @Autowired
     ApplicationService applicationService;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     public SeekerController(SeekerService seekerService) {
         this.seekerService = seekerService;
     }
-
-
-
-    @SuppressWarnings("null")
     @PostMapping("/registerSeeker/save")
     public String registration(@Valid @ModelAttribute("seeker") SeekerRegistrationDTO seekerRegistrationDTO,
                                BindingResult result,
-                               Model model){
+                               Model model) {
         Seeker existingSeeker = seekerService.findSeekerByEmail(seekerRegistrationDTO.getEmail());
 
-        if(existingSeeker != null && existingSeeker.getEmail() != null && !existingSeeker.getEmail().isEmpty()){
+        if (existingSeeker != null && existingSeeker.getEmail() != null && !existingSeeker.getEmail().isEmpty()) {
             result.rejectValue("email", null,
                     "There is already an account registered with the same email");
         }
-
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             model.addAttribute("seeker", seekerRegistrationDTO);
             return "/register";
         }
-
         seekerService.saveSeeker(seekerRegistrationDTO);
         return "redirect:/register?success";
     }
 
     @GetMapping("/seeker-home")
-    public String seekerHome(Model model){
+    public String seekerHome(Model model) {
         List<Job> jobs = jobService.getAllJobs();
         Map<String, Long> jobsByCategory = jobs.stream()
                 .collect(Collectors.groupingBy(Job::getCategory, Collectors.counting()));
@@ -89,6 +74,7 @@ public class SeekerController {
         model.addAttribute("jobs", jobs);
         return "seeker_home";
     }
+
     @GetMapping("/seeker/settings")
     public String usersSettings(Model model, Principal principal) {
         String username = principal.getName();
@@ -103,14 +89,10 @@ public class SeekerController {
         existingSeeker.setFirstName(seekerRegistrationDTO.getFirstName());
         existingSeeker.setLastName(seekerRegistrationDTO.getLastName());
         existingSeeker.setEmail(seekerRegistrationDTO.getEmail());
-
-
         if (seekerRegistrationDTO.getPassword() != null && !seekerRegistrationDTO.getPassword().isEmpty()) {
             existingSeeker.setPassword(passwordEncoder.encode(seekerRegistrationDTO.getPassword()));
         }
-
         existingSeeker.setPhone(seekerRegistrationDTO.getPhone());
-
         seekerService.updateSeeker(existingSeeker);
         return "redirect:/seeker/settings";
     }
@@ -121,18 +103,18 @@ public class SeekerController {
                               Model model) {
         applicationService.createApplication(seekerId, jobId);
         model.addAttribute("successMessage", "You have successfully applied for the job.");
-        return "seeker_my_applications";
+        return "redirect:/seeker/my-applications";
     }
 
     @GetMapping("/seeker/my-applications")
-    public String applications(@AuthenticationPrincipal CustomSeekerDetails customSeekerDetails, Model model){
+    public String applications(@AuthenticationPrincipal CustomSeekerDetails customSeekerDetails, Model model) {
         Long seekerId = customSeekerDetails.getId();
         model.addAttribute("jobApplications", applicationService.getApplicationsForSeeker(seekerId));
         return "seeker_my_applications";
     }
 
     @GetMapping("/seeker/my-applications-details/{id}")
-    public String applicationsDetails(@AuthenticationPrincipal CustomSeekerDetails customSeekerDetails, Model model, @PathVariable long id){
+    public String applicationsDetails(@AuthenticationPrincipal CustomSeekerDetails customSeekerDetails, Model model, @PathVariable long id) {
         Long seekerId = customSeekerDetails.getId();
         model.addAttribute("job", jobService.getJobByID(id).get());
         Job job = jobService.getJobByID(id).orElse(null);
@@ -145,8 +127,4 @@ public class SeekerController {
         }
         return "seeker_my_applications_details";
     }
-
-
-
-
 }

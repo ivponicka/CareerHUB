@@ -1,5 +1,4 @@
 package com.example.careerhub.service;
-import com.example.careerhub.model.Application;
 import com.example.careerhub.model.Category;
 import com.example.careerhub.model.Job;
 import com.example.careerhub.model.User;
@@ -16,10 +15,8 @@ import java.util.Optional;
 public class JobServiceImp implements JobService {
     @Autowired
     JobRepository jobRepository;
-
     @Autowired
     ApplicationRepository applicationRepository;
-
     @Override
     public void addJob(Job job) {
         jobRepository.save(job);
@@ -55,7 +52,6 @@ public class JobServiceImp implements JobService {
     public List<Job> getJobsByUser(User user) {
         return jobRepository.findByUser(user);
     }
-
     @Override
     public List<Job> searchJobs(String name, String location) {
         if(name != null && !name.isEmpty() && location != null && !location.isEmpty()){
@@ -68,13 +64,7 @@ public class JobServiceImp implements JobService {
             return jobRepository.findAll();
         }
     }
-
-    public List<Job> findByUserId(Long userId) {
-        return jobRepository.findByUserId(userId);
-    }
-
     public boolean jobHasApplications(Long jobId) {
         return !applicationRepository.findByJobId(jobId).isEmpty();
     }
-
 }

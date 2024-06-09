@@ -1,5 +1,4 @@
 package com.example.careerhub.service;
-
 import com.example.careerhub.model.Admin;
 import com.example.careerhub.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;

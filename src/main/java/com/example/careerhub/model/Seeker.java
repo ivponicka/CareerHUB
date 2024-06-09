@@ -1,5 +1,4 @@
 package com.example.careerhub.model;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +7,6 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -35,7 +33,6 @@ public class Seeker
             joinColumns={@JoinColumn(name="SEEKER_ID", referencedColumnName="ID")},
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles = new ArrayList<>();
-
     @OneToMany(mappedBy = "seeker")
     private List<Application> applications;
 

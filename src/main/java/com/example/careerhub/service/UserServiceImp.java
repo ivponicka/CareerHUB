@@ -4,14 +4,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.example.careerhub.dto.UserRegistrationDTO;
 import com.example.careerhub.model.Role;
 import com.example.careerhub.model.User;
 import com.example.careerhub.repository.RoleRepository;
 import com.example.careerhub.repository.UserRepository;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -69,30 +67,10 @@ public class UserServiceImp implements UserService {
     public void updateUser(User user) {
         userRepository.save(user);
     }
-
-
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-    @Override
-    public List<UserRegistrationDTO> findAllUsers() {
-        List<User> users = userRepository.findAll();
-        return users.stream()
-                .map((user) -> mapToUserDto(user))
-                .collect(Collectors.toList());
-    }
-    @Override
-    public List<User> getAllUsers() {
-           return userRepository.findAll();
-    }
-    @Override
-    public Optional<User> findUserByID(Long id) {
-       return userRepository.findById(id);
-    }
-
-
-
     private UserRegistrationDTO mapToUserDto(User user){
         UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO();
         userRegistrationDTO.getFirstName();
@@ -111,9 +89,7 @@ public class UserServiceImp implements UserService {
             String email = authentication.getName();
             return userRepository.findByEmail(email);
         } else {
-            // Handle the case when no user is authenticated
             return null;
         }
     }
-
 }

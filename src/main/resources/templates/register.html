@@ -6,7 +6,6 @@
     <title>Career HUB</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"
           type="text/css"/>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,500,700,900' rel='stylesheet'
@@ -18,13 +17,12 @@
     <link href='./css/styles.css' rel="stylesheet" type="text/css">
 </head>
 <body>
-
 <div class="row">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container">
-            <a class="navbar-brand" href="#" th:href="@{/home}"><img th:src="@{${'/images/logo.png'}}" th:href="@{/index}"
-                                                  class="logo"/></a>
-
+            <a class="navbar-brand" href="#" th:href="@{/home}"><img th:src="@{${'/images/logo.png'}}"
+                                                                     th:href="@{/index}"
+                                                                     class="logo"/></a>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#" th:href="@{/home}">Home</a>
@@ -47,7 +45,6 @@
         <div class="container">
             <div th:if="${param.success}">
                 <div class="alert alert-info">You've successfully registered!</div>
-
             </div>
             <div class="row full-height justify-content-center">
                 <div class="col-12 text-center align-self-center py-5">
@@ -58,7 +55,6 @@
                         </h6>
                         <input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
                         <label for="reg-log"></label>
-
                         <div class="card-3d-wrap mx-auto">
                             <div class="card-3d-wrapper">
                                 <div th:if=${param.success}>
@@ -144,7 +140,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="card-back">
                                     <div class="center-wrap">
                                         <div class="section-register text-center">
@@ -197,7 +192,6 @@
         </div>
     </div>
 </div>
-
 <footer
         class="text-center text-lg-start text-white"
         style="background-color: #45526e; width: 100%">
@@ -232,7 +226,6 @@
                 </div>
             </div>
         </section>
-
         <hr class="my-3">
         <section class="p-3 pt-0">
             <div class="row d-flex align-items-center">
@@ -243,29 +236,24 @@
                         >
                     </div>
                 </div>
-
                 <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
                     <a
                             class="btn btn-outline-light btn-floating m-1 text-white"
-
                             role="button"
                     ><i class="fab fa-facebook-f"></i
                     ></a>
                     <a
                             class="btn btn-outline-light btn-floating m-1 text-white"
-
                             role="button"
                     ><i class="fab fa-twitter"></i
                     ></a>
                     <a
                             class="btn btn-outline-light btn-floating m-1 text-white"
-
                             role="button"
                     ><i class="fab fa-google"></i
                     ></a>
                     <a
                             class="btn btn-outline-light btn-floating m-1 text-white"
-
                             role="button"
                     ><i class="fab fa-instagram"></i
                     ></a>
@@ -275,5 +263,4 @@
     </div>
 </footer>
 </body>
-
 </html>

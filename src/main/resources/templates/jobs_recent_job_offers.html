@@ -21,18 +21,19 @@
     <div class="row">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
-                <a class="navbar-brand" href="#" th:href="@{/home}"><img th:src="@{${'/images/logo.png'}}" th:href="@{/}"
-                                                      class="logo"/></a>
-
+                <a class="navbar-brand" href="#" th:href="@{/home}"><img th:src="@{${'/images/logo.png'}}"
+                                                                         th:href="@{/}"
+                                                                         class="logo"/></a>
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#" th:href="@{/home}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" sec:authorize="!isAuthenticated()"  th:href="@{/register}">Register</a>
+                        <a class="nav-link" href="#" sec:authorize="!isAuthenticated()"
+                           th:href="@{/register}">Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" sec:authorize="!isAuthenticated()"  th:href="@{/login}">Login</a>
+                        <a class="nav-link" href="#" sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" sec:authorize="hasRole('USER')" th:href="@{/job-offers}">Job offers</a>
@@ -52,7 +53,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:href="@{/about}">About us</a>
                     </li>
-
                     <li class="nav-item active">
                         <a
                                 class="nav-link"
@@ -84,12 +84,11 @@
             </div>
         </form>
     </div>
-
     <div class="container">
         <div class="row job-lists" style="padding:35px 5px 35px 5px;">
             <h2 class="categories-title" style="padding-bottom: 20px">Recently added job offers</h2>
             <th:block th:each="job : ${jobPage.content}">
-                <a class="card text-center"  th:href="@{/view-job/{id}(id=${job.id})}" style="text-decoration: none;">
+                <a class="card text-center" th:href="@{/view-job/{id}(id=${job.id})}" style="text-decoration: none;">
                     <b><h2 class="card-header" th:text="${job.name}"></h2></b>
                     <div class="row">
                         <div class="col-3" style="align-items:center">
@@ -111,20 +110,15 @@
             </th:block>
         </div>
         <div class="pagination">
-
-                <a th:if="${jobPage.hasPrevious()}"
-                   th:href="@{'/recent-job-offers?page=' + ${jobPage.number - 1}}" class="pagination-link">Previous</a>
-                <span th:text="${jobPage.number + 1} + ' of ' + ${jobPage.totalPages}" style="border: 2px solid rgb(69,82,110); padding: 0px 20px"></span>
-                <a  th:if="${jobPage.hasNext()}"
-                    th:href="@{'/recent-job-offers?page=' + ${jobPage.number + 1}}" class="pagination-link">Next</a>
-
-
+            <a th:if="${jobPage.hasPrevious()}"
+               th:href="@{'/recent-job-offers?page=' + ${jobPage.number - 1}}" class="pagination-link">Previous</a>
+            <span th:text="${jobPage.number + 1} + ' of ' + ${jobPage.totalPages}"
+                  style="border: 2px solid rgb(69,82,110); padding: 0px 20px"></span>
+            <a th:if="${jobPage.hasNext()}"
+               th:href="@{'/recent-job-offers?page=' + ${jobPage.number + 1}}" class="pagination-link">Next</a>
         </div>
     </div>
-
-
     <div class="">
-
         <footer
                 class="text-center text-lg-start text-white"
                 style="background-color: #45526e; width: 100%">
@@ -159,7 +153,6 @@
                         </div>
                     </div>
                 </section>
-
                 <hr class="my-3">
                 <section class="p-3 pt-0">
                     <div class="row d-flex align-items-center">
@@ -170,7 +163,6 @@
                                 >
                             </div>
                         </div>
-
                         <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
                             <a
                                     class="btn btn-outline-light btn-floating m-1 text-white"
@@ -180,19 +172,16 @@
                             ></a>
                             <a
                                     class="btn btn-outline-light btn-floating m-1 text-white"
-
                                     role="button"
                             ><i class="fab fa-twitter"></i
                             ></a>
                             <a
                                     class="btn btn-outline-light btn-floating m-1 text-white"
-
                                     role="button"
                             ><i class="fab fa-google"></i
                             ></a>
                             <a
                                     class="btn btn-outline-light btn-floating m-1 text-white"
-
                                     role="button"
                             ><i class="fab fa-instagram"></i
                             ></a>
@@ -204,5 +193,4 @@
     </div>
 </div>
 </body>
-
 </html>

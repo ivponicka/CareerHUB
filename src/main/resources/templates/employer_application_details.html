@@ -25,7 +25,6 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
                 <a class="navbar-brand" href="#"><img th:src="@{${'/images/logo.png'}}" class="logo"/></a>
-
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" th:href="@{/employer-home}">Home</a>
@@ -42,7 +41,6 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/about}">About us</a>
                     </li>
-
                     <li class="nav-item active">
                         <a
                                 class="nav-link"
@@ -64,7 +62,6 @@
             <div class="col-12">
                 <br>
                 <div class="container">
-
                     <div>
                         <h2>Job Details</h2>
                         <p><strong>Job Name:</strong> <span th:text="${job.name}"></span></p>
@@ -81,7 +78,6 @@
                         <p><strong>Last Name:</strong> <span th:text="${seeker.lastName}"></span></p>
                         <p><strong>Email:</strong> <span th:text="${seeker.email}"></span></p>
                         <p><strong>Email:</strong> <span th:text="${seeker.phone}"></span></p>
-                        <!-- Add more seeker details as needed -->
                     </div>
                     <br>
                     <div>
@@ -91,12 +87,10 @@
                         <p><strong>Status:</strong> <span th:text="${applications.status}"></span></p>
                         <p><strong>Message:</strong> <span th:text="${applications.message}"></span></p>
                     </div>
-
                 </div>
                 <td style="text-align: center; width:200px; justify-content:center">
                     <a type="button" class="btn btn-blue" style="font-size: 18px; text-align: center" data-toggle="modal" data-target="#sendMessageModal" th:data-id="${applications.id}">Send message</a>
                 </td>
-
                 <div class="modal fade" id="sendMessageModal" tabindex="-1" role="dialog" aria-labelledby="sendMessageModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -113,15 +107,12 @@
                                         <label for="message">Message</label>
                                         <textarea class="form-control" id="message" name="message" rows="3"></textarea>
                                     </div>
-
                                     <label for="status">Status:</label>
-
                                     <select name="status" id="status">
                                         <option value="Pending" name="status">Pending</option>
                                         <option value="Accepted" name="status">Accepted</option>
                                         <option value="Rejected" name="status">Rejected</option>
                                     </select>
-
                                     <button type="submit" class="btn btn-primary">Send</button>
                                 </form>
                             </div>
@@ -129,16 +120,10 @@
                     </div>
                 </div>
         </div>
-
 </div>
-
-
     <div class="container">
-
     </div>
-
     <div class=" my-5">
-
         <footer
                 class="text-center text-lg-start text-white"
                 style="background-color: #45526e; width: 100%">
@@ -146,8 +131,7 @@
                 <section class="">
                     <div class="row">
                         <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-                            <a th:href="@{/employer-home}"><img th:src="@{${'./../../images/logotransparent.png'}}"
-                                                                style="width: 200px; border: 1px solid #45526e">
+                            <a th:href="@{/employer-home}"><img th:src="@{${'./../../images/logotransparent.png'}}" style="width: 200px; border: 1px solid #45526e">
                             </a>
                         </div>
                         <hr class="w-100 clearfix d-md-none"/>
@@ -173,7 +157,6 @@
                         </div>
                     </div>
                 </section>
-
                 <hr class="my-3">
                 <section class="p-3 pt-0">
                     <div class="row d-flex align-items-center">
@@ -217,9 +200,6 @@
         </footer>
     </div>
 </div>
-
-
-
 <script>
     $('#sendMessageModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); // Button that triggered the modal
@@ -229,5 +209,4 @@
     });
 </script>
 </body>
-
 </html>

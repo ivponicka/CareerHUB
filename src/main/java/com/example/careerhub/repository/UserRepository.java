@@ -7,5 +7,4 @@ import com.example.careerhub.model.User;
 public interface UserRepository extends JpaRepository<User, Long>{
      User findByEmail(String email);
      Optional<User> findById(Long userId);
-     User findByLastName(String lastname);
 }

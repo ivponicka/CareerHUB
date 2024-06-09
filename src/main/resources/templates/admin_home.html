@@ -22,7 +22,6 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
                 <a class="navbar-brand" href="#"><img th:src="@{${'/images/logo.png'}}" class="logo"/></a>
-
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" th:href="@{/admin-home}">Home</a>
@@ -39,7 +38,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:href="@{/about}">About us</a>
                     </li>
-
                     <li class="nav-item active">
                         <a
                                 class="nav-link"
@@ -67,8 +65,6 @@
                 <button type="submit" name="search"><i class="fas fa-search"></i></button>
             </div>
         </form>
-
-
     </div>
     <br>
     <div class="container mx-auto">
@@ -86,19 +82,17 @@
             </div>
         </div>
     </div>
-
     <div class="row" style="background-color: rgb(52, 60, 87); padding: 50px 180px">
         <div class="col-5">
             <img th:src="@{${'images/job2.jpg'}}" style="width: 400px;"/>
         </div>
         <div class="col-7">
             <h2 style="color: white">We help to get a job and find a new talent</h2>
-            <h5 style="color: white; text-align: justify; padding: 40px" >Looking for your next career move? Look no further than OurJobHub. Our platform offers a diverse range of job opportunities across various industries, making it easy for you to find the perfect job</h5>
-
-
+            <h5 style="color: white; text-align: justify; padding: 40px">Looking for your next career move? Look no
+                further than OurJobHub. Our platform offers a diverse range of job opportunities across various
+                industries, making it easy for you to find the perfect job</h5>
         </div>
     </div>
-
     <div class="container">
         <div class="row job-lists" style="padding:35px 5px 35px 5px; ">
             <th:block th:each="job : ${jobs}">
@@ -107,24 +101,20 @@
                     </h2>
                     <div class="card-body">
                         <h5 class="card-title" th:text="${job.salary} + ' €' + ' / ' + ${job.type}"></h5>
-                        <p class="card-text" th:text="${job.description}" style="padding-right: 150px; padding-left:150px"></p>
+                        <p class="card-text" th:text="${job.description}"
+                           style="padding-right: 150px; padding-left:150px"></p>
                         <div class="locat">
-                            <i class="fas fa-map-marker-alt"></i><p class="card-text" th:text="${job.location}"> <i class="fa-solid fa-location-dot"></i></p>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <p class="card-text" th:text="${job.location}"><i class="fa-solid fa-location-dot"></i></p>
                         </div>
-
-
                     </div>
                     <div class="card-footer text-body-secondary" th:text="${job.postingDate}">
-
                     </div>
                 </a>
-
             </th:block>
         </div>
     </div>
-
     <div class=" my-5">
-
         <footer
                 class="text-center text-lg-start text-white"
                 style="background-color: #45526e; width: 100%">
@@ -159,7 +149,6 @@
                         </div>
                     </div>
                 </section>
-
                 <hr class="my-3">
                 <section class="p-3 pt-0">
                     <div class="row d-flex align-items-center">
@@ -170,7 +159,6 @@
                                 >
                             </div>
                         </div>
-
                         <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
                             <a
                                     class="btn btn-outline-light btn-floating m-1 text-white"
@@ -192,7 +180,6 @@
                             ></a>
                             <a
                                     class="btn btn-outline-light btn-floating m-1 text-white"
-
                                     role="button"
                             ><i class="fab fa-instagram"></i
                             ></a>
@@ -204,5 +191,4 @@
     </div>
 </div>
 </body>
-
 </html>

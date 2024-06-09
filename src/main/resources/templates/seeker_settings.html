@@ -28,15 +28,15 @@
                         <a class="nav-link active" aria-current="page" th:href="@{/seeker-home}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="hasAuthority('SEEKER')" th:href="@{/seeker/my-applications}">My applications</a>
+                        <a class="nav-link" sec:authorize="hasAuthority('SEEKER')" th:href="@{/seeker/my-applications}">My
+                            applications</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="hasAuthority('SEEKER')"  th:href="@{/seeker/settings}">Settings</a>
+                        <a class="nav-link" sec:authorize="hasAuthority('SEEKER')" th:href="@{/seeker/settings}">Settings</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:href="@{/about}">About us</a>
                     </li>
-
                     <li class="nav-item active">
                         <a
                                 class="nav-link"
@@ -56,37 +56,36 @@
     </div>
     <br>
     <div class="container">
-            <div class="container">
+        <div class="container">
 
-                <h2>Update Your Information</h2>
-                <form th:action="@{/seeker/settings/update}" th:object="${seekerData}" method="post"
-                      enctype="multipart/form-data">
-                    <input type="text" id="id" th:field="*{id}" class="form-control" required hidden>
-                    <div class="form-group-settings">
-                        <label for="firstName">First Name:</label>
-                        <input type="text" id="firstName" th:field="*{firstName}" class="form-control" required>
-                    </div>
-                    <div class="form-group-settings">
-                        <label for="lastName">Last Name:</label>
-                        <input type="text" id="lastName" th:field="*{lastName}" class="form-control" required>
-                    </div>
-                    <div class="form-group-settings">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" th:field="*{email}" class="form-control" required>
-                    </div>
-                    <div class="form-group-settings">
-                        <label for="password">Password:</label>
-                        <input type="text" id="password"  name="password" class="form-control" placeholder="">
-                    </div>
-                    <div class="form-group-settings">
-                        <label for="phone">Phone:</label>
-                        <input type="text" id="phone" th:field="*{phone}" class="form-control">
-                    </div>
-                    <button type="submit" class="btn btn-blue">Update</button>
-                </form>
-            </div>
+            <h2>Update Your Information</h2>
+            <form th:action="@{/seeker/settings/update}" th:object="${seekerData}" method="post"
+                  enctype="multipart/form-data">
+                <input type="text" id="id" th:field="*{id}" class="form-control" required hidden>
+                <div class="form-group-settings">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" th:field="*{firstName}" class="form-control" required>
+                </div>
+                <div class="form-group-settings">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" th:field="*{lastName}" class="form-control" required>
+                </div>
+                <div class="form-group-settings">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" th:field="*{email}" class="form-control" required>
+                </div>
+                <div class="form-group-settings">
+                    <label for="password">Password:</label>
+                    <input type="text" id="password" name="password" class="form-control" placeholder="">
+                </div>
+                <div class="form-group-settings">
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" th:field="*{phone}" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-blue">Update</button>
+            </form>
+        </div>
     </div>
-
     <div class=" my-5">
         <footer
                 class="text-center text-lg-start text-white"
@@ -123,7 +122,6 @@
                         </div>
                     </div>
                 </section>
-
                 <hr class="my-3">
                 <section class="p-3 pt-0">
                     <div class="row d-flex align-items-center">
@@ -134,29 +132,24 @@
                                 >
                             </div>
                         </div>
-
                         <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
                             <a
                                     class="btn btn-outline-light btn-floating m-1 text-white"
-
                                     role="button"
                             ><i class="fab fa-facebook-f"></i
                             ></a>
                             <a
                                     class="btn btn-outline-light btn-floating m-1 text-white"
-
                                     role="button"
                             ><i class="fab fa-twitter"></i
                             ></a>
                             <a
                                     class="btn btn-outline-light btn-floating m-1 text-white"
-
                                     role="button"
                             ><i class="fab fa-google"></i
                             ></a>
                             <a
                                     class="btn btn-outline-light btn-floating m-1 text-white"
-
                                     role="button"
                             ><i class="fab fa-instagram"></i
                             ></a>
@@ -179,5 +172,4 @@
     }
 </script>
 </body>
-
 </html>

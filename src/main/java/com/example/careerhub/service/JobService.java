@@ -15,10 +15,6 @@ public interface JobService {
     public Page<Job> getPaginatedJobs(int page, int size);
     Page<Job> getPaginatedJobsByCategory(String category, int page, int size);
     public List<Job> getJobsByUser(User user);
-
-    public List<Job> findByUserId(Long userId);
-
     public List<Job> searchJobs(String title, String location);
-
     public boolean jobHasApplications(Long jobId);
 }

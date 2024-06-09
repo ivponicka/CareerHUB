@@ -1,13 +1,10 @@
 package com.example.careerhub.model;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.List;
-
 @Setter
 @Getter
 @NoArgsConstructor
@@ -31,7 +28,6 @@ public class Job {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
     @OneToMany(mappedBy = "job")
     private List<Application> applications;
 }

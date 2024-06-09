@@ -1,5 +1,4 @@
 package com.example.careerhub.repository;
-
 import com.example.careerhub.model.Category;
 import com.example.careerhub.model.Job;
 import com.example.careerhub.model.User;
@@ -23,9 +22,5 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     List<Job> findByNameContainingAndLocationContaining(String title, String location);
     List<Job> findByNameContaining(String title);
     List<Job> findByLocationContaining(String location);
-
-    @Query("SELECT j FROM Job j JOIN j.user u WHERE u.companyName = :companyName")
-    List<Job> findByCompanyName(@Param("companyName") String companyName);
     List<Job> findByUserId(Long userId);
-
 }

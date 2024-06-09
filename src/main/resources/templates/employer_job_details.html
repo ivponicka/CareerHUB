@@ -22,7 +22,6 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
                 <a class="navbar-brand" href="#"><img th:src="@{${'/images/logo.png'}}" class="logo"/></a>
-
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" th:href="@{/employer-home}">Home</a>
@@ -31,7 +30,8 @@
                         <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/job-offers}">Job offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/job-offers}">Applications</a>
+                        <a class="nav-link" sec:authorize="hasAuthority('USER')"
+                           th:href="@{/job-offers}">Applications</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/employer/settings}">Settings</a>
@@ -39,7 +39,6 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/about}">About us</a>
                     </li>
-
                     <li class="nav-item active">
                         <a
                                 class="nav-link"
@@ -54,14 +53,12 @@
         </nav>
     </div>
     <div class="row job-offers-title">
-
         <h2 th:text="${job.name}" style="padding: 50px 0"></h2>
     </div>
     <br>
     <div class="container mx-auto">
         <div class="row" style="padding-left:100px; padding-right:100px">
-            <div class="col-4" >
-
+            <div class="col-4">
                 <h5><b>Category</b></h5>
                 <h4 th:text="${job.category}" class="job-offer-details"></h4>
                 <br>
@@ -71,7 +68,7 @@
                 <h5><b>Salary</b></h5>
                 <h4 th:text="${job.salary} + ' €'" class="job-offer-details"></h4>
             </div>
-            <div class="col-7 justify-content-md-center"  >
+            <div class="col-7 justify-content-md-center">
                 <h5><b>Location</b></h5>
                 <h4 th:text="${job.location}" class="job-offer-details"></h4>
                 <h5><b>Requirements</b></h5>
@@ -80,30 +77,26 @@
                 <h5><b>Description</b></h5>
                 <h6 th:text="${job.description}" class="job-offer-details"></h6>
                 <br>
-
-                <div class="col-12" style="display: flex; flex-direction: row; justify-content: space-between; padding-top: 50px; ">
+                <div class="col-12"
+                     style="display: flex; flex-direction: row; justify-content: space-between; padding-top: 50px; ">
                     <div>
-                        <a type="button"  th:href="@{/employer/edit/{id} (id=${job.id})}" class="btn btn-outline-dark" style="width: 150px; padding-right: 20px">Edit</a>
-                        <a type="button" th:href="@{/job-offers}" class="btn btn-outline-dark" style="width: 150px" >Back</a>
+                        <a type="button" th:href="@{/employer/edit/{id} (id=${job.id})}" class="btn btn-outline-dark"
+                           style="width: 150px; padding-right: 20px">Edit</a>
+                        <a type="button" th:href="@{/job-offers}" class="btn btn-outline-dark"
+                           style="width: 150px">Back</a>
                     </div>
 
                     <div style="padding-left: 150px">
-                        <a type="button" th:href="@{/employer/delete/{id} (id=${job.id})}" class="btn btn-outline-danger" style="width: 150px;" >Delete</a>
+                        <a type="button" th:href="@{/employer/delete/{id} (id=${job.id})}"
+                           class="btn btn-outline-danger" style="width: 150px;">Delete</a>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
-
-
     <div class="container">
-
     </div>
-
     <div class=" my-5">
-
         <footer
                 class="text-center text-lg-start text-white"
                 style="background-color: #45526e; width: 100%">
@@ -138,7 +131,6 @@
                         </div>
                     </div>
                 </section>
-
                 <hr class="my-3">
                 <section class="p-3 pt-0">
                     <div class="row d-flex align-items-center">
@@ -149,7 +141,6 @@
                                 >
                             </div>
                         </div>
-
                         <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
                             <a
                                     class="btn btn-outline-light btn-floating m-1 text-white"
@@ -183,5 +174,4 @@
     </div>
 </div>
 </body>
-
 </html>

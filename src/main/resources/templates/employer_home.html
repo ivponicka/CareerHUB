@@ -22,7 +22,6 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
                 <a class="navbar-brand" href="#"><img th:src="@{${'/images/logo.png'}}" class="logo"/></a>
-
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" th:href="@{/employer-home}">Home</a>
@@ -37,7 +36,7 @@
                         <a class="nav-link" sec:authorize="hasAuthority('USER')" th:href="@{/employer/settings}">Settings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  th:href="@{/about}">About us</a>
+                        <a class="nav-link" th:href="@{/about}">About us</a>
                     </li>
                     <li class="nav-item active">
                         <a
@@ -58,7 +57,6 @@
             <h2>Find your desired job </h2>
             <h4>Discover opportunities that align with your skills and passions</h4>
         </div>
-
         <form class="form-search-fields" action="/search-jobs" method="get">
             <div class="search-fields">
                 <input id="search-position" name="name" placeholder="Name">
@@ -77,48 +75,47 @@
         <div class="categories mx-auto">
             <div class="row" style="padding:35px 5px 35px 5px">
                 <th:block th:each="entry : ${jobsByCategory}">
-                    <a class="card" th:href="@{/jobs_category_job_offers(category=${entry.key})}" style="width: 16rem; height:13rem; padding:5px; margin:15px">
+                    <a class="card" th:href="@{/jobs_category_job_offers(category=${entry.key})}"
+                       style="width: 16rem; height:13rem; padding:5px; margin:15px">
                         <div class="card-body col">
                             <h5 class="card-title" th:text="${entry.key}" style="font-weight: bold"></h5>
-                            <img th:src="@{/icons/{iconName}(iconName=${categoryIconPaths[__${entry.key}__]})}" alt="Category Icon" class="card-img-top">
+                            <img th:src="@{/icons/{iconName}(iconName=${categoryIconPaths[__${entry.key}__]})}"
+                                 alt="Category Icon" class="card-img-top">
                             <p class="card-text" th:text="${entry.value}"></p>
                         </div>
-
                     </a>
                 </th:block>
             </div>
         </div>
     </div>
-
-
     <div class="row" style="background-color: rgb(52, 60, 87); padding: 50px 180px">
         <div class="col-5">
             <img th:src="@{${'images/job2.jpg'}}" style="width: 400px;"/>
         </div>
         <div class="col-7">
             <h2 style="color: white">We help to get a job and find a new talent</h2>
-            <h5 style="color: white; text-align: justify; padding: 40px" >Looking for your next career move? Look no further than OurJobHub. Our platform offers a diverse range of job opportunities across various industries, making it easy for you to find the perfect job</h5>
-
-
+            <h5 style="color: white; text-align: justify; padding: 40px">Looking for your next career move? Look no
+                further than OurJobHub. Our platform offers a diverse range of job opportunities across various
+                industries, making it easy for you to find the perfect job</h5>
         </div>
     </div>
-
-
     <div class="container">
         <div class="row job-lists" style="padding:35px 5px 35px 5px;">
             <h2 class="categories-title" style="padding-bottom: 20px">Recently added job offers</h2>
             <th:block th:with="maxIndex=${jobs.size() - 1}">
                 <th:block th:each="i : ${#numbers.sequence(0, 2)}">
                     <th:block th:with="index=${maxIndex - i}">
-                        <a class="card text-center"  th:href="@{/view-job/{id}(id=${jobs[index].id})}"  style="text-decoration: none;">
+                        <a class="card text-center" th:href="@{/view-job/{id}(id=${jobs[index].id})}"
+                           style="text-decoration: none;">
                             <b><h2 class="card-header" th:text="${jobs[index].name}"></h2></b>
                             <div class="row">
                                 <div class="col-3" style="align-items:center">
                                     <img th:src="@{'/images/' + ${jobs[index].user.imageName}}"
-                                         alt="${jobs[index].user.imageName}" width="150px" height="100px" style="object-fit: cover">
+                                         alt="${jobs[index].user.imageName}" width="150px" height="100px"
+                                         style="object-fit: cover">
                                 </div>
                                 <div class="col-6">
-                                    <p  th:text="${jobs[index].description}"  class="list-job-description"></p></div>
+                                    <p th:text="${jobs[index].description}" class="list-job-description"></p></div>
                                 <div class="col-3 list-job-info">
                                     <h5 class="card-title"
                                         th:text="${jobs[index].salary} + ' €' + ' / ' + ${jobs[index].type}"></h5>
@@ -129,19 +126,17 @@
                                                 class="fa-solid fa-location-dot"></i></h5>
                                     </div>
                                 </div>
-
-
                             </div>
                         </a>
                     </th:block>
                 </th:block>
             </th:block>
             <div style="text-align: center">
-                <a class="btn btn-blue" th:href="@{/recent-job-offers}" style="width: 250px; text-align: center">Check out more</a>
+                <a class="btn btn-blue" th:href="@{/recent-job-offers}" style="width: 250px; text-align: center">Check
+                    out more</a>
             </div>
         </div>
     </div>
-
     <div class="">
         <footer
                 class="text-center text-lg-start text-white"
@@ -153,9 +148,10 @@
                             <h6 class="text-uppercase mb-4 font-weight-bold">
                                 CareerHUB
                             </h6>
-                            <img th:src="@{${'images/logotransparent.png'}}" style="width: 200px; border: 1px solid #45526e">
+                            <img th:src="@{${'images/logotransparent.png'}}"
+                                 style="width: 200px; border: 1px solid #45526e">
                         </div>
-                        <hr class="w-100 clearfix d-md-none" />
+                        <hr class="w-100 clearfix d-md-none"/>
                         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
                             <h6 class="text-uppercase mb-4 font-weight-bold">LINKS</h6>
                             <p>
@@ -171,8 +167,8 @@
                                 <a class="text-white">About us</a>
                             </p>
                         </div>
-                        <hr class="w-100 clearfix d-md-none" />
-                        <hr class="w-100 clearfix d-md-none" />
+                        <hr class="w-100 clearfix d-md-none"/>
+                        <hr class="w-100 clearfix d-md-none"/>
                         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
                             <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
                             <p><i class="fas fa-home mr-3"></i> Warsaw, 12-456, Poland</p>
@@ -182,7 +178,6 @@
                         </div>
                     </div>
                 </section>
-
                 <hr class="my-3">
                 <section class="p-3 pt-0">
                     <div class="row d-flex align-items-center">
@@ -193,7 +188,6 @@
                                 >
                             </div>
                         </div>
-
                         <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
                             <a
                                     class="btn btn-outline-light btn-floating m-1 text-white"
@@ -215,7 +209,6 @@
                             ></a>
                             <a
                                     class="btn btn-outline-light btn-floating m-1 text-white"
-
                                     role="button"
                             ><i class="fab fa-instagram"></i
                             ></a>
@@ -227,5 +220,4 @@
     </div>
 </div>
 </body>
-
 </html>

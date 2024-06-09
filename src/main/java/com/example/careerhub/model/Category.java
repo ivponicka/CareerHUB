@@ -1,7 +1,5 @@
 package com.example.careerhub.model;
-
 public enum Category {
-
     AGRICULTURE ("agriculture.png"),
     ART ("arts.png"),
     BUSINESS  ("business.png"),
